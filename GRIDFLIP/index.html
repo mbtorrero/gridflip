@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GRIDFLIP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loading-screen" class="screen active">
+        <h1 data-i18n="LOADING">LOADING...</h1>
+    </div>
+
+    <div id="title-screen" class="screen">
+        <h1 class="game-title" data-i18n="NAME">GRIDFLIP</h1>
+        <div class="menu-buttons">
+            <button data-i18n="BTN_PLAY" onclick="Game.startLevel({ size: 3})">START</button>
+            <button data-i18n="BTN_LEVELS" onclick="Utils.switchScreen('title-screen', 'level-screen')">LEVELS</button>
+            <button data-i18n="BTN_DAILY_CHALLENGE" id="btn-daily" onclick="Game.startDaily()">DAILY CHALLENGE</button>
+            <button data-i18n="BTN_INSTRUCTIONS" onclick="Utils.switchScreen('title-screen', 'instructions-screen')">INSTRUCTIONS</button>
+            <button data-i18n="BTN_STATS" onclick="Game.showStats()">STATS</button>
+        </div>
+    </div>
+
+    <div id="level-screen" class="screen">
+        <h2 data-i18n="TITLE_SELECT_LEVEL">SELECT LEVEL</h2>
+        <div class="menu-buttons">
+            <button data-i18n="BTN_3X3" onclick="Game.startLevel({ size: 3 })">3x3</button>
+            <button data-i18n="BTN_4X4" onclick="Game.startLevel({ size: 4 })">4x4</button>
+            <button data-i18n="BTN_5x5" onclick="Game.startLevel({ size: 5 })">5x5</button>
+            <button data-i18n="BTN_6x6" onclick="Game.startLevel({ size: 6 })">6x6</button>
+            <button data-i18n="BTN_BACK" onclick="Utils.switchScreen('level-screen', 'title-screen')">BACK</button>
+        </div>
+    </div>
+
+    <div id="instructions-screen" class="screen">
+        <h2 data-i18n="HOW_TO_PLAY">HOW TO PLAY</h2>
+        <p data-i18n="INSTRUCTIONS">Click a tile to flip it. Flipping a tile also flips all directly adjacent tiles. Your goal is to make all tiles show the same side.</p>
+        <button data-i18n="BTN_BACK" onclick="Utils.switchScreen('instructions-screen', 'title-screen')">BACK</button>
+    </div>
+
+    <div id="stats-screen" class="screen">
+        <h2 data-i18n="TITLE_STATISTICS">STATISTICS</h2>
+        <p id="stats-content"></p>
+        <button data-i18n="BTN_BACK" onclick="Utils.switchScreen('stats-screen', 'title-screen')">BACK</button>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div id="grid-container"></div>
+        <button data-i18n="BTN_QUIT" class="back-btn" onclick="Game.quit()">QUIT</button>
+    </div>
+
+    <script src="../utils.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
