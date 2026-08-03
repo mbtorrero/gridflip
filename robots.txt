@@ -1,0 +1,7 @@
+# Temporary: block every crawler while this is only published as a public
+# GitHub Pages preview (see DEPLOY.md). This file — and the matching
+# <meta name="robots" content="noindex, nofollow"> in each index.html — must
+# NOT be carried over when deploying to {{domain}}; production
+# gets its own robots.txt decided separately.
+User-agent: *
+Disallow: /

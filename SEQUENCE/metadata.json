@@ -1,0 +1,12 @@
+{
+  "id": "SEQUENCE",
+  "name": "Sequence",
+  "shortDescription": "Watch the directional pattern, then repeat it back in order.",
+  "skills": ["SHORT_TERM_MEMORY", "WORKING_MEMORY", "VISUAL_SHORT_TERM_MEMORY", "UPDATING"],
+  "supportedLanguages": ["en_US"],
+  "gamemodes": ["levels", "free"],
+  "requiresSound": false,
+  "colorSensitive": false,
+
+  "_note_enums": "See ../GRIDFLIP/metadata.json for the canonical skills/language/gamemode enum lists shared by every microgame."
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Temporary: keep this out of search engines while it's only a public
+         GitHub Pages preview. Remove along with robots.txt once deployed to
+         AWS — see DEPLOY.md. -->
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Temporary access gate for the public GitHub Pages preview — remove
+         once this is deployed behind real AWS auth. See DEPLOY.md. -->
+    <script>
+    (function () {
+        var expected = atob('cGFzc3Bhc3M=');
+        var input = null;
+        do {
+            input = prompt('Enter password to continue:');
+        } while (input !== expected);
+    })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CogniFit Microgames</title>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        /* This launcher is a plain scrolling page, not a game screen, so it
+           opts out of the no-scroll/absolute-position game shell in theme.css. */
+        body { overflow-y: auto; }
+        .launcher {
+            min-height: 100%;
+            display: flex; flex-direction: column; align-items: center;
+            padding: clamp(24px, 6vmin, 56px) clamp(16px, 4vmin, 32px);
+        }
+        .launcher-brand {
+            display: flex; align-items: center; gap: var(--cf-space-2);
+            color: var(--cf-cyan-400); margin-bottom: var(--cf-space-4);
+        }
+        .launcher-brand svg { width: 28px; height: 28px; }
+        .launcher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: clamp(12px, 2.5vmin, 24px);
+            width: min(94vw, 920px);
+            margin-top: var(--cf-space-8);
+        }
+        .game-card {
+            display: flex; align-items: center; justify-content: center;
+            background: var(--cf-gradient-panel);
+            border: 1px solid var(--cf-border-soft);
+            border-radius: var(--cf-radius-lg);
+            box-shadow: var(--cf-shadow-panel);
+            padding: var(--cf-space-8) var(--cf-space-6);
+            text-decoration: none; color: inherit;
+            font-size: var(--cf-type-h2); font-weight: 800; text-align: center;
+            transition: transform var(--cf-motion-base) var(--cf-ease-standard),
+                        border-color var(--cf-motion-base) var(--cf-ease-standard);
+        }
+        .game-card:hover, .game-card:focus-visible { transform: translateY(-3px); border-color: var(--cf-border-medium); }
+    </style>
+</head>
+<body>
+    <div class="launcher">
+        <div class="launcher-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
+            <span>COGNIFIT MICROGAMES</span>
+        </div>
+        <h1 class="cf-game-title">Choose a game</h1>
+        <p class="cf-game-subtitle">Pick one to start playing</p>
+
+        <div class="launcher-grid" id="launcher-grid"></div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        const grid = document.getElementById('launcher-grid');
+        window.games.forEach(game => {
+            const link = document.createElement('a');
+            link.className = 'game-card';
+            link.href = `${game.id}/index.html`;
+            link.innerText = game.name;
+            grid.appendChild(link);
+        });
+    </script>
+</body>
+</html>

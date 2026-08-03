@@ -1,0 +1,12 @@
+{
+  "id": "MATCHCOLOR",
+  "name": "Match the Color",
+  "shortDescription": "Find the swatch that matches the target color as options get closer together.",
+  "skills": ["FOCUS_ATTENTION", "VISUAL_PERCEPTION", "PROCESSING_SPEED", "RESPONSE_TIME"],
+  "supportedLanguages": ["en_US"],
+  "gamemodes": ["levels", "free", "daily"],
+  "requiresSound": false,
+  "colorSensitive": true,
+
+  "_note_enums": "See ../GRIDFLIP/metadata.json for the canonical skills/language/gamemode enum lists shared by every microgame."
+}

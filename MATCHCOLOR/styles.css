@@ -1,0 +1,48 @@
+/* MATCH THE COLOR — game-specific layout on top of ../theme.css */
+
+/* .progress-dots / .progress-dot now live in ../theme.css (shared). */
+
+/* sizeOptionsGrid() measures the grid's own top position to compute how
+   much height is left for it. With the default centered body, that position
+   depends on the grid's OWN height — a circular measurement that's wrong on
+   the very first round (before the grid has any size yet) and only settles
+   on the next one. Anchoring the body to the top removes the circularity:
+   everything above the grid has a fixed height, so the grid's top is stable
+   from the first measurement. */
+#game-screen .cf-screen-body { justify-content: flex-start; }
+
+#game-screen .cf-game-subtitle { flex-shrink: 0; margin-bottom: var(--cf-space-3); }
+
+.target-swatch {
+    display: block;
+    flex-shrink: 0;
+    width: min(60vw, 260px);
+    height: clamp(48px, 10vh, 84px);
+    padding: 0;
+    border-radius: var(--cf-radius-lg);
+    box-shadow: var(--cf-shadow-panel);
+    margin-bottom: var(--cf-space-5);
+    transition: background var(--cf-motion-base) var(--cf-ease-standard);
+}
+
+.options-grid {
+    /* width and column track sizes are computed in JS (sizeOptionsGrid) so
+       cells are bounded by both available width and height */
+    flex-shrink: 0;
+    aspect-ratio: auto;
+    display: grid;
+    gap: var(--cf-space-3);
+    margin: 0;
+    justify-content: center;
+}
+
+.color-swatch {
+    /* Width and height are both set in JS (sizeOptionsGrid) to the same
+       cellSize, so every swatch is a uniform square — no aspect-ratio or
+       min-size guesswork here that could disagree with the JS sizing. */
+    border: 2px solid transparent;
+    border-radius: var(--cf-radius-md);
+    padding: 0;
+}
+
+.color-swatch.is-selected { border-color: var(--cf-cyan-400); }

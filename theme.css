@@ -1,0 +1,408 @@
+/* ==========================================================================
+   CogniFit Micro Games — shared visual system
+   Plain CSS, zero build step. Every game links this before its own styles.css
+   so it can override/extend without duplicating tokens or components.
+   ========================================================================== */
+
+:root {
+  /* Backgrounds */
+  --cf-bg-950: #020B2D;
+  --cf-bg-900: #06164A;
+  --cf-bg-850: #071B63;
+  --cf-bg-panel: rgba(7, 25, 79, 0.78);
+  --cf-bg-panel-strong: rgba(6, 20, 66, 0.92);
+  --cf-bg-overlay: rgba(2, 8, 34, 0.66);
+
+  /* Brand & actions */
+  --cf-blue-500: #2F6BFF;
+  --cf-blue-400: #4F82FF;
+  --cf-cyan-400: #27D7FF;
+  --cf-cyan-300: #5CE7FF;
+  --cf-violet-500: #8E5BFF;
+  --cf-violet-400: #A36CFF;
+
+  /* Reward & success */
+  --cf-gold-500: #FFC83D;
+  --cf-gold-400: #FFD75F;
+  --cf-success-500: #35D07F;
+
+  /* Error & warning */
+  --cf-error-500: #FF5E6C;
+  --cf-warning-500: #FF9F43;
+
+  /* Text */
+  --cf-text-primary: #F7FAFF;
+  --cf-text-secondary: #B8C5E8;
+  --cf-text-muted: #7F90B9;
+  --cf-text-dark: #07112F;
+
+  /* Lines & surfaces */
+  --cf-border-soft: rgba(126, 159, 255, 0.22);
+  --cf-border-medium: rgba(111, 150, 255, 0.42);
+  --cf-white-08: rgba(255, 255, 255, 0.08);
+  --cf-white-12: rgba(255, 255, 255, 0.12);
+  --cf-white-18: rgba(255, 255, 255, 0.18);
+
+  /* Gradients */
+  --cf-gradient-page:
+    radial-gradient(circle at 20% 15%, rgba(47, 107, 255, .22), transparent 32%),
+    radial-gradient(circle at 85% 75%, rgba(142, 91, 255, .20), transparent 36%),
+    linear-gradient(180deg, #06164A 0%, #020B2D 100%);
+  --cf-gradient-primary: linear-gradient(100deg, #7049F7 0%, #2F6BFF 52%, #27D7FF 100%);
+  --cf-gradient-purple-card: linear-gradient(145deg, #6D39D8 0%, #3A1C91 100%);
+  --cf-gradient-gold-card: linear-gradient(145deg, #FFCA2E 0%, #C97800 100%);
+  --cf-gradient-panel: linear-gradient(180deg, rgba(13, 35, 105, .92) 0%, rgba(4, 16, 57, .88) 100%);
+
+  /* Typography
+     vmin = whichever of width/height is smaller. Sizing off it means text
+     shrinks correctly on short landscape screens too, not just narrow ones. */
+  --cf-font-ui: Inter, "SF Pro Display", "SF Pro Text", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --cf-type-display: clamp(28px, 6vmin, 48px);
+  --cf-type-h1: clamp(22px, 5vmin, 36px);
+  --cf-type-h2: clamp(20px, 4.5vmin, 30px);
+  --cf-type-body-lg: clamp(16px, 3.5vmin, 22px);
+  --cf-type-body: clamp(16px, 3vmin, 19px);
+  --cf-type-label: clamp(13px, 2.5vmin, 16px);
+  --cf-type-metric: clamp(20px, 4.5vmin, 38px);
+
+  /* Spacing (4px scale) */
+  --cf-space-1: 4px;
+  --cf-space-2: 8px;
+  --cf-space-3: 12px;
+  --cf-space-4: 16px;
+  --cf-space-5: 20px;
+  --cf-space-6: 24px;
+  --cf-space-8: 32px;
+  --cf-space-10: 40px;
+  --cf-space-12: 48px;
+  --cf-space-16: 64px;
+
+  /* Radii */
+  --cf-radius-sm: 10px;
+  --cf-radius-md: 16px;
+  --cf-radius-lg: 24px;
+  --cf-radius-xl: 32px;
+  --cf-radius-pill: 999px;
+
+  /* Shadows */
+  --cf-shadow-panel: 0 14px 40px rgba(0, 6, 35, .42), inset 0 1px 0 rgba(255, 255, 255, .10);
+  --cf-shadow-blue: 0 0 0 1px rgba(79, 130, 255, .65), 0 0 22px rgba(47, 107, 255, .38), 0 12px 30px rgba(0, 0, 0, .34);
+  --cf-shadow-purple: 0 0 0 1px rgba(177, 111, 255, .78), 0 0 22px rgba(142, 91, 255, .45), 0 12px 26px rgba(0, 0, 0, .35);
+  --cf-shadow-gold: 0 0 0 1px rgba(255, 214, 80, .90), 0 0 24px rgba(255, 190, 30, .55), 0 12px 26px rgba(0, 0, 0, .35);
+
+  /* Motion */
+  --cf-motion-fast: 120ms;
+  --cf-motion-base: 200ms;
+  --cf-motion-slow: 320ms;
+  --cf-ease-standard: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* ---- Reset & base ---------------------------------------------------- */
+
+* { box-sizing: border-box; touch-action: manipulation; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--cf-font-ui);
+  color: var(--cf-text-primary);
+  background: var(--cf-gradient-page);
+  background-color: var(--cf-bg-950);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p { margin: 0; }
+
+button {
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cf-cyan-400);
+  outline-offset: 2px;
+}
+
+/* Reduced motion still gets a state change, just a much quicker one — a
+   flip or a modal that plays over 0.001ms reads as "broken", not "reduced". */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 100ms !important;
+    transition-duration: 100ms !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    *, *::before, *::after {
+    animation-duration: 300ms !important;
+    transition-duration: 300ms !important;
+  }
+}
+
+/* ---- App shell --------------------------------------------------------
+   Every game's <body> (or its top-level screen container) gets .cf-app.
+   Screens are absolutely stacked, only `.active` is interactive/visible —
+   same pattern GRIDFLIP already used, just restyled.
+
+   A screen is a column: an optional .cf-topbar (fixed height, in normal
+   flow — never overlapping content) followed by .cf-screen-body, which
+   takes the remaining space and centers its own content. Sizes throughout
+   this file scale with vmin so content fits without ever needing to
+   scroll — no scrollbars, on any screen, at any size.
+   ------------------------------------------------------------------- */
+
+.cf-app, .screen {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center;
+  overflow: hidden;
+  padding: max(clamp(10px, 3vmin, 16px), env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+           max(clamp(10px, 3vmin, 18px), env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+.screen {
+  opacity: 0; pointer-events: none; transform: scale(0.98);
+  transition: opacity var(--cf-motion-slow) var(--cf-ease-standard),
+              transform var(--cf-motion-slow) var(--cf-ease-standard);
+}
+.screen.active { opacity: 1; pointer-events: auto; transform: scale(1); }
+
+/* ---- Top bar / HUD ----------------------------------------------------- */
+
+.cf-topbar {
+  position: relative; width: 100%; flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--cf-space-3);
+  margin-bottom: clamp(6px, 1.5vmin, 12px);
+}
+
+.cf-screen-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+/* Also used as a link back to the game picker (root index.html), top-left
+   on every screen — same look whether it's a <div> or an <a>. */
+.cf-brand {
+  display: flex; align-items: center; gap: var(--cf-space-2);
+  font-weight: 700; font-size: var(--cf-type-label); color: var(--cf-text-secondary);
+  letter-spacing: 0.02em;
+  text-decoration: none; cursor: pointer;
+  transition: color var(--cf-motion-base) var(--cf-ease-standard);
+}
+.cf-brand:hover { color: var(--cf-text-primary); }
+.cf-brand svg { width: 20px; height: 20px; color: var(--cf-cyan-400); flex-shrink: 0; }
+
+.cf-hud {
+  display: flex; gap: var(--cf-space-2); flex-wrap: wrap; justify-content: center;
+}
+
+.cf-hud-card {
+  background: var(--cf-gradient-panel);
+  border: 1px solid var(--cf-border-soft);
+  border-radius: var(--cf-radius-md);
+  box-shadow: var(--cf-shadow-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: var(--cf-space-2) var(--cf-space-4);
+  display: flex; flex-direction: column; gap: 2px; min-width: 64px;
+}
+.cf-hud-card .cf-hud-label {
+  font-size: var(--cf-type-label); font-weight: 500; color: var(--cf-text-secondary);
+}
+.cf-hud-card .cf-hud-value {
+  font-size: var(--cf-type-metric); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1;
+}
+
+.cf-icon-btn {
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  background: var(--cf-bg-panel); border: 1px solid var(--cf-border-soft); border-radius: var(--cf-radius-md);
+  color: var(--cf-text-primary); flex-shrink: 0;
+  transition: border-color var(--cf-motion-base) var(--cf-ease-standard), transform var(--cf-motion-fast) var(--cf-ease-standard);
+}
+.cf-icon-btn:hover { border-color: var(--cf-border-medium); }
+.cf-icon-btn:active { transform: scale(0.96); }
+.cf-icon-btn svg { width: 24px; height: 24px; }
+
+/* ---- Game identity ------------------------------------------------------ */
+
+.cf-game-title {
+  font-size: var(--cf-type-h1); font-weight: 800; text-align: center;
+  margin-bottom: clamp(4px, 1vmin, 8px);
+}
+.cf-game-subtitle {
+  font-size: var(--cf-type-body); font-weight: 400; color: var(--cf-text-secondary);
+  text-align: center; max-width: 60ch; margin-bottom: clamp(8px, 3vmin, 24px);
+}
+
+/* ---- Playfield ----------------------------------------------------------- */
+
+.cf-playfield {
+  width: min(92vw, 620px, 68vh);
+  aspect-ratio: var(--game-aspect-ratio, 1 / 1);
+  margin: var(--cf-space-4) 0;
+  flex-shrink: 1;
+}
+
+/* ---- Buttons -------------------------------------------------------------- */
+
+.cf-button-primary {
+  min-height: clamp(46px, 10vmin, 60px);
+  padding: 0 var(--cf-space-8);
+  border: 1px solid rgba(117, 225, 255, .75);
+  border-radius: var(--cf-radius-pill);
+  background: var(--cf-gradient-primary);
+  color: var(--cf-text-primary);
+  font: 700 var(--cf-type-body-lg) / 1 var(--cf-font-ui);
+  box-shadow: 0 0 24px rgba(39, 215, 255, .30), 0 12px 28px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .20);
+  transition: transform var(--cf-motion-fast) var(--cf-ease-standard), box-shadow var(--cf-motion-base) var(--cf-ease-standard);
+}
+.cf-button-primary:hover { transform: translateY(-1px); filter: brightness(1.1); }
+.cf-button-primary:active { transform: scale(0.98); }
+.cf-button-primary:disabled { opacity: 0.45; box-shadow: none; transform: none; cursor: not-allowed; }
+
+.cf-button-secondary {
+  min-height: clamp(44px, 9vmin, 56px);
+  padding: 0 var(--cf-space-6);
+  border: 1px solid var(--cf-border-medium);
+  border-radius: var(--cf-radius-pill);
+  background: var(--cf-bg-panel);
+  color: var(--cf-text-primary);
+  font: 600 var(--cf-type-body) / 1 var(--cf-font-ui);
+  transition: border-color var(--cf-motion-base) var(--cf-ease-standard), transform var(--cf-motion-fast) var(--cf-ease-standard);
+}
+.cf-button-secondary:hover { border-color: var(--cf-cyan-400); }
+.cf-button-secondary:active { transform: scale(0.98); }
+
+.cf-menu {
+  display: flex; flex-direction: column; align-items: stretch;
+  gap: clamp(4px, 1.2vmin, 12px);
+  width: min(92vw, 360px);
+}
+
+/* Level-select screens: a multi-column grid of level buttons, with a
+   full-width BACK button as its own row underneath. */
+.cf-level-select {
+  display: flex; flex-direction: column; align-items: stretch;
+  gap: clamp(8px, 2vmin, 16px);
+  width: min(92vw, 480px);
+}
+.cf-level-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(110px, 26vmin, 160px), 1fr));
+  gap: clamp(8px, 2vmin, 12px);
+}
+
+/* ---- Interactive tile/card — shared states -------------------------------
+   Games compose their own tile markup but reuse these state classes so
+   feedback language stays identical across the whole product.
+   ------------------------------------------------------------------- */
+
+.cf-tile {
+  background: var(--cf-gradient-purple-card);
+  border: 1px solid var(--cf-border-medium);
+  border-radius: var(--cf-radius-lg);
+  box-shadow: var(--cf-shadow-panel);
+  transition: transform var(--cf-motion-base) var(--cf-ease-standard),
+              box-shadow var(--cf-motion-base) var(--cf-ease-standard),
+              border-color var(--cf-motion-base) var(--cf-ease-standard);
+}
+.cf-tile:hover, .cf-tile:focus-visible { transform: scale(1.02); border-color: var(--cf-border-medium); }
+
+.cf-tile.is-selected {
+  border-width: 2px; border-color: var(--cf-cyan-400); box-shadow: var(--cf-shadow-blue);
+}
+
+.cf-tile.is-correct {
+  background: var(--cf-gradient-gold-card); box-shadow: var(--cf-shadow-gold);
+  animation: cf-pulse var(--cf-motion-slow) var(--cf-ease-standard);
+}
+
+.cf-tile.is-error {
+  animation: cf-shake var(--cf-motion-base) var(--cf-ease-standard);
+  border-color: var(--cf-error-500);
+}
+
+.cf-tile.is-disabled { opacity: 0.45; pointer-events: none; }
+
+@keyframes cf-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cf-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ---- Progress dots ---------------------------------------------------------
+   The default way to show "how did each round go" — a grey dot per round,
+   lighting up green (check) or red (cross) once answered. Prefer this over
+   a text label like "Round 3/8"; the visual is faster to read and doesn't
+   need translating.
+   ------------------------------------------------------------------- */
+
+.progress-dots {
+  display: flex; flex-wrap: wrap; flex-shrink: 0;
+  justify-content: center;
+  gap: var(--cf-space-2);
+  max-width: min(92vw, 480px);
+  margin-bottom: var(--cf-space-4);
+}
+.progress-dot {
+  width: 24px; height: 24px;
+  border-radius: var(--cf-radius-pill);
+  background: var(--cf-white-12);
+  border: 2px solid var(--cf-border-soft);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--cf-motion-base) var(--cf-ease-standard),
+              border-color var(--cf-motion-base) var(--cf-ease-standard);
+}
+.progress-dot svg {
+  width: 13px; height: 13px; opacity: 0; transform: scale(0.5);
+  transition: opacity var(--cf-motion-base) var(--cf-ease-standard),
+              transform var(--cf-motion-base) var(--cf-ease-standard);
+}
+.progress-dot.state-correct { background: var(--cf-success-500); border-color: var(--cf-success-500); }
+.progress-dot.state-wrong { background: var(--cf-error-500); border-color: var(--cf-error-500); }
+.progress-dot.state-correct svg,
+.progress-dot.state-wrong svg { opacity: 1; transform: scale(1); }
+
+/* ---- Modal ----------------------------------------------------------------- */
+
+.cf-modal-overlay {
+  position: absolute; inset: 0; background: var(--cf-bg-overlay);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--cf-space-4);
+  opacity: 0; pointer-events: none; transition: opacity var(--cf-motion-base) var(--cf-ease-standard);
+}
+.cf-modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+.cf-modal {
+  background: var(--cf-gradient-panel);
+  border: 1px solid var(--cf-border-soft);
+  border-radius: var(--cf-radius-xl);
+  box-shadow: var(--cf-shadow-panel);
+  padding: var(--cf-space-8);
+  width: min(92vw, 420px);
+  text-align: center;
+  display: flex; flex-direction: column; gap: var(--cf-space-4);
+}
+.cf-modal h2 { font-size: var(--cf-type-h2); font-weight: 800; }
+.cf-modal .cf-modal-actions { display: flex; flex-direction: column; gap: var(--cf-space-3); }
+
+
+/* ---- Utility -------------------------------------------------------------- */
+
+.cf-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}

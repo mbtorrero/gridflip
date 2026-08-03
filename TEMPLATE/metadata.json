@@ -1,0 +1,12 @@
+{
+  "id": "TEMPLATE",
+  "name": "Template",
+  "shortDescription": "Copy this folder, rename TEMPLATE everywhere, replace the mechanic.",
+  "skills": ["FOCUS_ATTENTION"],
+  "supportedLanguages": ["en_US"],
+  "gamemodes": ["levels", "free"],
+  "requiresSound": false,
+  "colorSensitive": false,
+
+  "_note_enums": "See ../GRIDFLIP/metadata.json for the canonical skills/language/gamemode enum lists shared by every microgame."
+}

@@ -1,7 +1,5 @@
 // utils.js
 const Utils = {
-    // Missing state storage for finishGame helpers
-    stats: {},
     gameId: 'microgame_default',
 
     setBackground(bgAsset, styleOptions = {}) {
@@ -21,6 +19,13 @@ const Utils = {
             const key = el.getAttribute('data-i18n');
             if (i18n[key]) {
                 el.innerText = i18n[key];
+            }
+        });
+
+        document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+            const key = el.getAttribute('data-i18n-aria');
+            if (i18n[key]) {
+                el.setAttribute('aria-label', i18n[key]);
             }
         });
     },
@@ -180,32 +185,50 @@ const Utils = {
         if (showEl) showEl.classList.add('active');
     },
 
-    // Mock storage helpers required by finishGame
-    saveStatistic(key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
+    simpleUniqueArray(array = []) {
+        return [...new Set(array)];
     },
 
-    getStatistic(key) {
-        const val = localStorage.getItem(key);
-        return val ? JSON.parse(val) : null;
+    formatTime(totalSeconds) {
+        const m = Math.floor(totalSeconds / 60);
+        const s = Math.floor(totalSeconds % 60);
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
     },
 
-    incrementStat(key) {
-        const current = this.getStatistic(key) || 0;
-        this.saveStatistic(key, current + 1);
+    // Fills in {placeholders} from vars, so share text stays localizable —
+    // a translation can reorder {date}/{steps}/{time} however it needs to.
+    formatTemplate(template, vars = {}) {
+        return template.replace(/\{(\w+)\}/g, (match, key) => (key in vars ? vars[key] : match));
     },
 
-    finishGame(isDaily) {
-        this.incrementStat(isDaily ? 'dailyChallengesCompleted' : 'gamesCompleted');
-        if (isDaily) {
-            const today = new Date().toISOString().split('T')[0];
-            let streak = this.getStatistic('dailyChallengeStreak') || [];
-            if (!streak.includes(today)) streak.push(today);
-            if (streak.length > 10) streak.shift();
-            this.saveStatistic('dailyChallengeStreak', streak);
+    async copyToClipboard(text) {
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                return true;
+            }
+        } catch (e) { /* fall through to the legacy method below */ }
+        try {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            const ok = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            return ok;
+        } catch (e) {
+            return false;
         }
-        
-        const eventData = { gameId: this.gameId, type: isDaily ? 'daily' : 'regular', stats: this.stats };
+    },
+
+    finishGame(levelOptions = {}, stats = {}) {
+        const eventData = { 
+            gameId: this.gameId,
+            levelOptions: levelOptions,
+            stats: stats
+        };
         if (window.parent && window.parent !== window) {
             window.parent.postMessage({ type: 'MICROGAME_COMPLETE', data: eventData }, '*');
         } else {

@@ -1,0 +1,9 @@
+/* TEMPLATE — game-specific layout on top of ../theme.css.
+   Put ONLY this game's own layout here; anything shared (buttons, HUD
+   cards, modals, tile states) already exists in theme.css — reuse those
+   classes instead of redefining them. */
+
+.tile-btn {
+    aspect-ratio: 1 / 1;
+    min-width: 44px;
+}

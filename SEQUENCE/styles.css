@@ -1,0 +1,103 @@
+/* SEQUENCE — game-specific layout on top of ../theme.css */
+
+#game-screen .cf-game-subtitle { flex-shrink: 0; margin-bottom: var(--cf-space-4); }
+
+/* .progress-dots / .progress-dot now live in ../theme.css (shared). */
+
+/* One shared row: the sequence reveals itself here while it plays, then the
+   same slots are reused to confirm the player's input, note by note — like
+   a music staff you both read from and play back onto. */
+.note-row {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: clamp(3px, 1.2vmin, 10px);
+    max-width: min(92vw, 560px);
+    margin-bottom: clamp(12px, 3vmin, 32px);
+}
+.note-slot {
+    flex-shrink: 0;
+    width: clamp(28px, 9.5vmin, 56px);
+    height: clamp(28px, 9.5vmin, 56px);
+    border-radius: var(--cf-radius-md);
+    background: var(--cf-bg-panel);
+    border: 2px solid var(--cf-border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cf-cyan-300);
+    transition: border-color var(--cf-motion-base) var(--cf-ease-standard),
+                box-shadow var(--cf-motion-base) var(--cf-ease-standard),
+                background var(--cf-motion-base) var(--cf-ease-standard);
+}
+.note-slot svg { width: 56%; height: 56%; opacity: 0; transform: scale(0.6); transition: opacity var(--cf-motion-fast) var(--cf-ease-standard), transform var(--cf-motion-fast) var(--cf-ease-standard); }
+
+.note-slot.revealed {
+    border-color: var(--cf-cyan-400);
+    box-shadow: var(--cf-shadow-blue);
+}
+.note-slot.revealed svg { opacity: 1; transform: scale(1); }
+
+.note-slot.filled {
+    background: var(--cf-gradient-gold-card);
+    border-color: var(--cf-gold-400);
+    box-shadow: var(--cf-shadow-gold);
+    color: var(--cf-text-dark);
+}
+.note-slot.filled svg { opacity: 1; transform: scale(1); }
+
+.dpad {
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: repeat(3, clamp(56px, 18vmin, 96px));
+    grid-template-rows: repeat(3, clamp(56px, 18vmin, 96px));
+    gap: clamp(8px, 2vmin, 12px);
+    justify-content: center;
+}
+
+.dpad-btn {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cf-text-primary);
+}
+.dpad-btn svg { width: 40%; height: 40%; }
+
+.dir-up { grid-column: 2; grid-row: 1; }
+.dir-left { grid-column: 1; grid-row: 2; }
+.dir-right { grid-column: 3; grid-row: 2; }
+.dir-down { grid-column: 2; grid-row: 3; }
+
+.dpad-center {
+    grid-column: 2; grid-row: 2;
+    background: var(--cf-bg-panel);
+    border: 1px solid var(--cf-border-soft);
+    border-radius: var(--cf-radius-lg);
+    box-shadow: var(--cf-shadow-panel);
+    transition: border-color var(--cf-motion-base) var(--cf-ease-standard), transform var(--cf-motion-fast) var(--cf-ease-standard);
+}
+.dpad-center:hover { border-color: var(--cf-cyan-400); }
+.dpad-center:active { transform: scale(0.96); }
+.dpad-center:disabled { opacity: 0.4; pointer-events: none; }
+
+.dpad-btn.is-disabled { opacity: 0.55; pointer-events: none; }
+
+/* Whole-pad feedback: every arrow lights up together, red for a mistake
+   (with a shake) or green for finishing a round. */
+.dpad-btn.cf-tile.flash-wrong { background: var(--cf-error-500); border-color: var(--cf-error-500); }
+.dpad-btn.cf-tile.flash-win { background: var(--cf-success-500); border-color: var(--cf-success-500); }
+
+@keyframes seq-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+}
+.dpad.shake { animation: seq-shake 400ms var(--cf-ease-standard); }
+
+.note-row.flash-wrong .note-slot { border-color: var(--cf-error-500); box-shadow: 0 0 16px rgba(255, 94, 108, .5); }
+.note-row.flash-win .note-slot { border-color: var(--cf-success-500); box-shadow: 0 0 16px rgba(53, 208, 127, .5); }

@@ -6,6 +6,9 @@ const Game = {
     size: 3,
     state: { data: [] },
     levelOptions: { size: 3, state: [] },
+    taps: 0,
+    startTime: 0,
+    elapsedSeconds: 0,
 
     init: async function(config = {}) {
         const languageKey = config.languageKey || 'en_US';
@@ -13,11 +16,11 @@ const Game = {
 
         const assets = await Utils.loadScript(assetsPath + 'assets.js', 'assets') || [];
         this.i18n = await Utils.loadLanguageBundle(assetsPath, languageKey);
-        const dailyChallenges = await Utils.loadScript(assetsPath + 'dailies.js', 'dailyChallenges') || [];
+        const dailyChallenges = await Utils.loadScript(assetsPath + 'dailyChallenges.js', 'dailyChallenges') || [];
 
         this.assetsPath = assetsPath;
         this.assets = assets;
-        this.stats = config.stats || {};
+        this.stats = config.stats || JSON.parse(localStorage.getItem(this.id + '/stats')) || {};
 
         await Utils.preloadAssets(assets);
         Utils.setBackground(assets.find(t => t.id === 'bg'));
@@ -35,6 +38,7 @@ const Game = {
             const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
             const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
             const todayStr = now.toISOString().split('T')[0];
+            window.todayStr = todayStr;
             if (Array.isArray(challenges)) {
                 levelConfig = challenges.find(c => c.date === todayStr) || challenges[dayOfYear % challenges.length];
                 this.startLevel(levelConfig);
@@ -64,8 +68,10 @@ const Game = {
         this.size = size;
         const initialState = options.state ? [...options.state] : this.randomLevelStates(size);
         
-        this.levelOptions = { size, state: [...initialState] };
+        this.levelOptions = { size, state: [...initialState], daily: options.daily };
         this.state.data = [...initialState];
+        this.taps = 0;
+        this.startTime = performance.now();
 
         this.renderGrid();
         Utils.switchScreen('title-screen', 'game-screen');
@@ -93,11 +99,12 @@ const Game = {
     renderGrid: function() {
         const container = document.getElementById('grid-container');
         container.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
+        container.style.gridTemplateRows = `repeat(${this.size}, 1fr)`;
         container.innerHTML = '';
 
         this.state.data.forEach((val, i) => {
             const tile = document.createElement('div');
-            tile.className = `tile ${val ? 'flipped' : ''}`;
+            tile.className = `tile cf-tile ${val ? 'flipped' : ''}`;
             tile.onclick = () => this.clickTile(i);
             
             tile.innerHTML = `
@@ -111,7 +118,8 @@ const Game = {
 
     clickTile: function(i) {
         if (window.audio?.click) Utils.playSound(window.audio.click);
-        
+        this.taps++;
+
         this.toggleVirtual(this.state.data, i, this.size);
         
         const tiles = document.querySelectorAll('.tile');
@@ -125,12 +133,52 @@ const Game = {
 
     checkWin: function() {
         const sum = this.state.data.reduce((a, b) => a + b, 0);
-        if (sum === 0 || sum === this.state.data.length) {
+        if (sum === 0 || sum === this.state.data.length) { // Win
+            document.querySelectorAll('.tile').forEach(t => t.classList.add('is-correct'));
+            if (window.audio?.win) Utils.playSound(window.audio.win);
+            this.elapsedSeconds = (performance.now() - this.startTime) / 1000;
             setTimeout(() => {
-                Utils.finishGame(false);
-                this.quit();
+                this.stats = this.stats ? this.stats : {};
+                this.stats.gamesCompleted = (this.stats.gamesCompleted + 1) || 1;
+                this.stats.dailyChallengesDates = this.stats.dailyChallengesDates ? this.stats.dailyChallengesDates : [];
+                if(this.levelOptions.daily){
+                    this.stats.dailyChallengesDates.push(window.todayStr);
+                    this.stats.dailyChallengesDates = Utils.simpleUniqueArray(this.stats.dailyChallengesDates);
+                    this.stats.dailyChallengesCompleted = this.stats.dailyChallengesDates.length;
+                }
+                localStorage.setItem(this.id + '/stats', JSON.stringify(this.stats));
+                Utils.finishGame(this.levelOptions, { taps: this.taps, seconds: this.elapsedSeconds });
+                this.showResult();
             }, 400);
         }
+    },
+
+    showResult: function() {
+        document.getElementById('result-taps').innerText = this.taps;
+        document.getElementById('result-time').innerText = Utils.formatTime(this.elapsedSeconds);
+        document.getElementById('result-share').style.display = this.levelOptions.daily ? '' : 'none';
+        document.getElementById('result-modal').classList.add('active');
+    },
+
+    copyShareText: function() {
+        const template = this.i18n['SHARE_TEMPLATE'] || 'Gridflip: {date} Solved in {steps} steps in {time}';
+        const text = Utils.formatTemplate(template, {
+            date: window.todayStr || '',
+            steps: this.taps,
+            time: Utils.formatTime(this.elapsedSeconds),
+        });
+        Utils.copyToClipboard(text).then(ok => {
+            const btn = document.getElementById('share-copy-btn');
+            if (!btn || !ok) return;
+            const original = btn.innerText;
+            btn.innerText = this.i18n['BTN_COPIED'] || 'COPIED!';
+            setTimeout(() => { btn.innerText = original; }, 1500);
+        });
+    },
+
+    acknowledgeResult: function() {
+        document.getElementById('result-modal').classList.remove('active');
+        this.quit();
     },
 
     quit: function() {
@@ -138,15 +186,22 @@ const Game = {
         Utils.switchScreen('level-screen', 'title-screen');
     },
 
+    requestQuit: function() {
+        document.getElementById('quit-modal').classList.add('active');
+    },
+
+    cancelQuit: function() {
+        document.getElementById('quit-modal').classList.remove('active');
+    },
+
+    confirmQuit: function() {
+        document.getElementById('quit-modal').classList.remove('active');
+        this.quit();
+    },
+
     showStats: function() {
-        // Adding fallback variables to support i18n
-        const strGamesWon = this.i18n['GAMES_WON'] || 'Games Won:';
-        const strDailiesWon = this.i18n['DAILIES_WON'] || 'Dailies Won:';
-        
-        document.getElementById('stats-content').innerHTML = `
-            ${strGamesWon} ${Utils.getStatistic('gamesCompleted') || 0}<br>
-            ${strDailiesWon} ${Utils.getStatistic('dailyChallengesCompleted') || 0}<br>
-        `;
+        document.getElementById('stat-games-won').innerText = this.stats.gamesCompleted || 0;
+        document.getElementById('stat-dailies-won').innerText = this.stats.dailyChallengesCompleted || 0;
         Utils.switchScreen('title-screen', 'stats-screen');
     }
 };
