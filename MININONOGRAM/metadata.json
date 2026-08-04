@@ -1,0 +1,17 @@
+{
+  "id": "MININONOGRAM",
+  "name": "Mini Nonogram",
+  "shortDescription": "Paint the grid using the row and column number clues to reveal a hidden picture.",
+  "skills": ["PLANNING", "WORKING_MEMORY", "SPATIAL_PERCEPTION"],
+  "supportedLanguages": [
+    "ar_MA", "bn", "ca_ES", "de_DE", "el_GR", "en_US", "es_ES", "eu",
+    "fr_FR", "gl", "he_IL", "hi", "id", "it_IT", "ja_JP", "ko_KR",
+    "mn", "nl_NL", "pl_PL", "pt_BR", "pt_PT", "ru_RU", "sr_RS",
+    "tr_TR", "ur", "zh_CN", "zh_HK"
+  ],
+  "gamemodes": ["levels", "free", "daily"],
+  "requiresSound": false,
+  "colorSensitive": false,
+
+  "_note_enums": "See ../GRIDFLIP/metadata.json for the canonical skills/language/gamemode enum lists shared by every microgame."
+}

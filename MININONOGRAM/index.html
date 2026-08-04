@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Temporary: keep this out of search engines while it's only a public
+         GitHub Pages preview. Remove along with robots.txt once deployed to
+         AWS — see DEPLOY.md. -->
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Temporary access gate for the public GitHub Pages preview — remove
+         once this is deployed behind real AWS auth. See DEPLOY.md. -->
+    <script>
+    (function () {
+        //var expected = atob('cGFzc3Bhc3M=');
+        //var input = null;
+        //do {
+        //    input = prompt('Enter password to continue:');
+        //} while (input !== expected);
+    })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MINI NONOGRAM</title>
+    <link rel="stylesheet" href="../theme.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loading-screen" class="screen active">
+        <div class="cf-screen-body">
+            <h1 class="cf-game-title" data-i18n="LOADING">LOADING...</h1>
+        </div>
+    </div>
+
+    <div id="title-screen" class="screen">
+        <div class="cf-topbar">
+            <a class="cf-brand" href="../index.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
+                <span data-i18n="BRAND">COGNIFIT MICROGAMES</span>
+            </a>
+        </div>
+        <div class="cf-screen-body">
+            <h1 class="cf-game-title" data-i18n="NAME">MINI NONOGRAM</h1>
+            <p class="cf-game-subtitle" data-i18n="TAGLINE">Paint the grid using the number clues to reveal the picture.</p>
+            <div class="cf-menu">
+                <button class="cf-button-primary" data-i18n="BTN_PLAY" onclick="Game.startQuickPlay()">PLAY</button>
+                <button class="cf-button-secondary" data-i18n="BTN_LEVELS" onclick="Utils.switchScreen('title-screen', 'level-screen')">LEVELS</button>
+                <button class="cf-button-secondary" data-i18n="BTN_DAILY_CHALLENGE" onclick="Game.startDaily()">DAILY CHALLENGE</button>
+                <button class="cf-button-secondary" data-i18n="BTN_INSTRUCTIONS" onclick="Utils.switchScreen('title-screen', 'instructions-screen')">INSTRUCTIONS</button>
+                <button class="cf-button-secondary" data-i18n="BTN_STATS" onclick="Game.showStats()">STATS</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="level-screen" class="screen">
+        <div class="cf-screen-body">
+            <h2 class="cf-game-title" data-i18n="TITLE_SELECT_LEVEL">SELECT LEVEL</h2>
+            <div class="cf-level-select">
+                <div class="cf-level-grid">
+                    <button class="cf-button-secondary" data-i18n="BTN_TINY" onclick="Game.startLevel({ difficulty: 'tiny' })">TINY</button>
+                    <button class="cf-button-secondary" data-i18n="BTN_SMALL" onclick="Game.startLevel({ difficulty: 'small' })">SMALL</button>
+                    <button class="cf-button-secondary" data-i18n="BTN_MEDIUM" onclick="Game.startLevel({ difficulty: 'medium' })">MEDIUM</button>
+                    <button class="cf-button-secondary" data-i18n="BTN_LARGE" onclick="Game.startLevel({ difficulty: 'large' })">LARGE</button>
+                </div>
+                <button class="cf-button-primary" data-i18n="BTN_BACK" onclick="Utils.switchScreen('level-screen', 'title-screen')">BACK</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="instructions-screen" class="screen">
+        <div class="cf-screen-body">
+            <h2 class="cf-game-title" data-i18n="HOW_TO_PLAY">HOW TO PLAY</h2>
+            <p class="cf-game-subtitle" data-i18n="INSTRUCTIONS">Reveal the hidden picture by filling in the grid. Row and column numbers show the exact size and order of painted cell groups.</p>
+            <button class="cf-button-primary" data-i18n="BTN_BACK" onclick="Utils.switchScreen('instructions-screen', 'title-screen')">BACK</button>
+        </div>
+    </div>
+
+    <div id="stats-screen" class="screen">
+        <div class="cf-screen-body">
+            <h2 class="cf-game-title" data-i18n="TITLE_STATISTICS">STATISTICS</h2>
+            <div class="cf-hud">
+                <div class="cf-hud-card">
+                    <span class="cf-hud-label" data-i18n="GAMES_COMPLETED">Puzzles solved:</span>
+                    <span class="cf-hud-value" id="stat-games-completed">0</span>
+                </div>
+                <div class="cf-hud-card">
+                    <span class="cf-hud-label" data-i18n="DAILY_COMPLETED">Daily challenges solved:</span>
+                    <span class="cf-hud-value" id="stat-dailies-completed">0</span>
+                </div>
+                <div class="cf-hud-card">
+                    <span class="cf-hud-label" data-i18n="BEST_TIME_TINY">Best time (Tiny):</span>
+                    <span class="cf-hud-value" id="stat-best-tiny">—</span>
+                </div>
+                <div class="cf-hud-card">
+                    <span class="cf-hud-label" data-i18n="BEST_TIME_SMALL">Best time (Small):</span>
+                    <span class="cf-hud-value" id="stat-best-small">—</span>
+                </div>
+                <div class="cf-hud-card">
+                    <span class="cf-hud-label" data-i18n="BEST_TIME_MEDIUM">Best time (Medium):</span>
+                    <span class="cf-hud-value" id="stat-best-medium">—</span>
+                </div>
+                <div class="cf-hud-card">
+                    <span class="cf-hud-label" data-i18n="BEST_TIME_LARGE">Best time (Large):</span>
+                    <span class="cf-hud-value" id="stat-best-large">—</span>
+                </div>
+            </div>
+            <button class="cf-button-primary" data-i18n="BTN_BACK" onclick="Utils.switchScreen('stats-screen', 'title-screen')" style="margin-top: var(--cf-space-6);">BACK</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="cf-topbar">
+            <div class="cf-brand">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
+                <span data-i18n="NAME">MINI NONOGRAM</span>
+            </div>
+            <button class="cf-icon-btn" data-i18n-aria="BTN_QUIT" aria-label="Quit" onclick="Game.requestQuit()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+            </button>
+        </div>
+
+        <div class="cf-screen-body">
+            <div id="nonogram-stage" class="nonogram-stage">
+                <div id="nonogram-grid" class="nonogram-grid"></div>
+                <div id="nono-toolbar" class="nono-toolbar">
+                    <button class="cf-icon-btn" data-i18n-aria="BTN_INSTRUCTIONS" aria-label="Instructions" onclick="Game.showInstructions()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="11"/><line x1="12" y1="8" x2="12" y2="8.01"/></svg>
+                    </button>
+                    <div class="nono-mark-toggle-group">
+                        <span id="mark-mode-label" data-i18n="MARK_MODE_LABEL">Mark mode</span>
+                        <button class="cf-icon-btn" id="mark-toggle-btn" data-i18n-aria="MODE_NOTE" aria-label="Mark" aria-pressed="false" onclick="Game.toggleMarkMode()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p id="live-region" class="cf-sr-only" aria-live="polite"></p>
+    </div>
+
+    <div id="instructions-modal" class="cf-modal-overlay">
+        <div class="cf-modal" role="dialog" aria-modal="true" aria-labelledby="instructions-modal-title">
+            <h2 id="instructions-modal-title" data-i18n="HOW_TO_PLAY">HOW TO PLAY</h2>
+            <p class="cf-game-subtitle" data-i18n="INSTRUCTIONS">Reveal the hidden picture by filling in the grid. Row and column numbers show the exact size and order of painted cell groups.</p>
+            <div class="cf-modal-actions">
+                <button class="cf-button-primary" data-i18n="BTN_CONTINUE" onclick="Game.hideInstructions()">CONTINUE</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="quit-modal" class="cf-modal-overlay">
+        <div class="cf-modal" role="alertdialog" aria-modal="true" aria-labelledby="quit-modal-title">
+            <h2 id="quit-modal-title" data-i18n="QUIT_CONFIRM_TITLE">Leave this game?</h2>
+            <p class="cf-game-subtitle" data-i18n="QUIT_CONFIRM_BODY">Your progress on this level will be lost.</p>
+            <div class="cf-modal-actions">
+                <button class="cf-button-primary" data-i18n="BTN_KEEP_PLAYING" onclick="Game.cancelQuit()">KEEP PLAYING</button>
+                <button class="cf-button-secondary" data-i18n="BTN_EXIT" onclick="Game.confirmQuit()">EXIT</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-modal" class="cf-modal-overlay">
+        <div class="cf-modal" role="alertdialog" aria-modal="true" aria-labelledby="result-modal-title">
+            <h2 id="result-modal-title" data-i18n="RESULT_TITLE_WIN">Solved!</h2>
+            <img id="result-image" class="nono-result-image" alt="" aria-hidden="true">
+            <p class="cf-game-subtitle"><span data-i18n="RESULT_TIME_LABEL">Time</span>: <span id="result-time">0:00</span></p>
+            <div id="result-share" class="cf-modal-actions" style="display:none;">
+                <button class="cf-button-secondary" id="share-copy-btn" data-i18n="BTN_COPY_RESULT" onclick="Game.copyShareText()">COPY RESULT</button>
+            </div>
+            <div class="cf-modal-actions">
+                <button class="cf-button-primary" data-i18n="BTN_CONTINUE" onclick="Game.acknowledgeResult()">CONTINUE</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../utils.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

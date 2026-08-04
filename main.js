@@ -4,4 +4,5 @@ window.games = [
     { id: 'GRIDFLIP', name: 'Gridflip' },
     { id: 'MATCHCOLOR', name: 'Match the Color' },
     { id: 'SEQUENCE', name: 'Sequence' },
+    { id: 'MININONOGRAM', name: 'Mini Nonogram' },
 ];

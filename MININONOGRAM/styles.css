@@ -1,0 +1,73 @@
+/* MININONOGRAM — game-specific layout on top of ../theme.css.
+   Shared buttons/HUD/modals/tile-state colors already live in theme.css. */
+
+/* Off = muted icon on the same neutral panel every other icon-btn uses.
+   On = solid fill, not just a border glow, so the two states read as
+   unmistakably different at a glance, not just "slightly brighter". */
+#mark-toggle-btn { color: var(--cf-text-secondary); }
+#mark-toggle-btn.is-active {
+    background: var(--cf-cyan-400);
+    border-color: var(--cf-cyan-400);
+    color: var(--cf-text-dark);
+    box-shadow: var(--cf-shadow-blue);
+}
+
+/* Stage wraps the grid plus the toolbar row sitting right under it. The
+   stage has no width of its own — it shrinks to the grid's width (its
+   widest child) — so the toolbar (align-items: stretch, the flex default)
+   always spans exactly the grid's current width, at any grid size. */
+.nonogram-stage {
+    display: flex; flex-direction: column;
+    gap: var(--cf-space-2);
+    flex-shrink: 0;
+}
+
+.nono-toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--cf-space-3);
+}
+.nono-mark-toggle-group {
+    display: flex; align-items: center; gap: var(--cf-space-2);
+}
+#mark-mode-label {
+    font-size: var(--cf-type-label); font-weight: 600; color: var(--cf-cyan-300);
+}
+
+/* Single CSS grid holding the corner spacer, column hints, row hints and
+   the puzzle cells all at once, sized in JS (cell size in px) so hint
+   numbers always land in the exact row/column they describe. */
+.nonogram-grid {
+    display: grid;
+    flex-shrink: 0;
+}
+
+.nono-hint {
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: var(--cf-text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+.nono-hint.is-done { color: var(--cf-success-500); }
+
+/* Each state is a flat 32x32 PNG (assets/img/tile_*.png) drawn edge to
+   edge — no CSS border-radius, no box-shadow/glow, the artwork itself is
+   the only visual difference between states. touch-action: none stops the
+   browser from treating a drag across cells as a page/scroll gesture, so
+   our own pointer-drag painting (see index.js) gets every move event. */
+.nono-cell {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    touch-action: none;
+}
+
+.nono-result-image {
+    width: 96px; height: 96px;
+    align-self: center;
+    object-fit: contain;
+    image-rendering: pixelated;
+    background: var(--cf-white-08);
+    border-radius: var(--cf-radius-md);
+    padding: var(--cf-space-2);
+}
