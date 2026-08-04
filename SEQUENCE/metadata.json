@@ -3,7 +3,12 @@
   "name": "Sequence",
   "shortDescription": "Watch the directional pattern, then repeat it back in order.",
   "skills": ["SHORT_TERM_MEMORY", "WORKING_MEMORY", "VISUAL_SHORT_TERM_MEMORY", "UPDATING"],
-  "supportedLanguages": ["en_US"],
+  "supportedLanguages": [
+    "ar_MA", "bn", "ca_ES", "de_DE", "el_GR", "en_US", "es_ES", "eu",
+    "fr_FR", "gl", "he_IL", "hi", "id", "it_IT", "ja_JP", "ko_KR",
+    "mn", "nl_NL", "pl_PL", "pt_BR", "pt_PT", "ru_RU", "sr_RS",
+    "tr_TR", "ur", "zh_CN", "zh_HK"
+  ],
   "gamemodes": ["levels", "free"],
   "requiresSound": false,
   "colorSensitive": false,

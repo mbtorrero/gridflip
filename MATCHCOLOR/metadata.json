@@ -3,7 +3,12 @@
   "name": "Match the Color",
   "shortDescription": "Find the swatch that matches the target color as options get closer together.",
   "skills": ["FOCUS_ATTENTION", "VISUAL_PERCEPTION", "PROCESSING_SPEED", "RESPONSE_TIME"],
-  "supportedLanguages": ["en_US"],
+  "supportedLanguages": [
+    "ar_MA", "bn", "ca_ES", "de_DE", "el_GR", "en_US", "es_ES", "eu",
+    "fr_FR", "gl", "he_IL", "hi", "id", "it_IT", "ja_JP", "ko_KR",
+    "mn", "nl_NL", "pl_PL", "pt_BR", "pt_PT", "ru_RU", "sr_RS",
+    "tr_TR", "ur", "zh_CN", "zh_HK"
+  ],
   "gamemodes": ["levels", "free", "daily"],
   "requiresSound": false,
   "colorSensitive": true,

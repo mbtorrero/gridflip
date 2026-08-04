@@ -3,7 +3,12 @@
   "name": "Gridflip",
   "shortDescription": "Flip all tiles to the same color. Flipping a tile also flips its neighbors.",
   "skills": ["PLANNING", "SPATIAL_PERCEPTION"],
-  "supportedLanguages": ["en_US"],
+  "supportedLanguages": [
+    "ar_MA", "bn", "ca_ES", "de_DE", "el_GR", "en_US", "es_ES", "eu",
+    "fr_FR", "gl", "he_IL", "hi", "id", "it_IT", "ja_JP", "ko_KR",
+    "mn", "nl_NL", "pl_PL", "pt_BR", "pt_PT", "ru_RU", "sr_RS",
+    "tr_TR", "ur", "zh_CN", "zh_HK"
+  ],
   "gamemodes": ["levels","free","daily"],
   "requiresSound": true,
   "colorSensitive": false,

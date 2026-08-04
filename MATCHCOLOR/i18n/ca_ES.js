@@ -1,0 +1,43 @@
+window.lb = {
+	"LOADING": "CARREGANT...",
+	"BRAND": "COGNIFIT MICROGAMES",
+	"NAME": "MATCH THE COLOR",
+	"TAGLINE": "Toca la mostra que coincideixi amb el color objectiu.",
+
+	"BTN_PLAY": "JUGAR",
+	"BTN_LEVELS": "NIVELLS",
+	"BTN_DAILY_CHALLENGE": "REPTE DIARI",
+	"BTN_INSTRUCTIONS": "INSTRUCCIONS",
+	"BTN_STATS": "ESTADÍSTIQUES",
+	"BTN_BACK": "ENRERE",
+	"BTN_QUIT": "Sortir",
+
+	"TITLE_SELECT_LEVEL": "SELECCIONA NIVELL",
+	"BTN_EASY": "FÀCIL",
+	"BTN_MEDIUM": "MITJÀ",
+	"BTN_HARD": "DIFÍCIL",
+	"BTN_EXPERT": "EXPERT",
+
+	"HOW_TO_PLAY": "COM JUGAR",
+	"INSTRUCTIONS": "Apareix un color objectiu a la part superior. Toca la mostra que hi coincideixi a sota. A cada ronda les opcions s'assemblen més entre si — els punts de dalt registren com ho has fet, en ordre.",
+
+	"TITLE_STATISTICS": "ESTADÍSTIQUES",
+	"GAMES_WON": "Partides guanyades:",
+	"DAILIES_WON": "Reptes diaris guanyats:",
+	"BEST_SCORE": "Millor puntuació:",
+
+	"FIND_MATCH": "Troba aquest color",
+	"SR_COLOR_OPTION": "Opció de color",
+
+	"RESULT_TITLE_WIN": "Nivell completat!",
+	"RESULT_TIME_LABEL": "Temps",
+	"BTN_CONTINUE": "CONTINUAR",
+	"BTN_COPY_RESULT": "COPIAR RESULTAT",
+	"BTN_COPIED": "COPIAT!",
+	"SHARE_TEMPLATE": "Match the Color: {date} {dots} {correct}/{total} resolt en {time}",
+
+	"QUIT_CONFIRM_TITLE": "Vols sortir del joc?",
+	"QUIT_CONFIRM_BODY": "Perdràs el progrés d'aquest nivell.",
+	"BTN_KEEP_PLAYING": "SEGUIR JUGANT",
+	"BTN_EXIT": "SORTIR"
+}
