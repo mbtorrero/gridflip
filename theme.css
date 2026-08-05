@@ -198,6 +198,8 @@ button {
 .cf-brand:hover { color: var(--cf-text-primary); }
 .cf-brand svg { width: 20px; height: 20px; color: var(--cf-cyan-400); flex-shrink: 0; }
 
+body.is-embedded a.cf-brand { display: none; }
+
 .cf-hud {
   display: flex; gap: var(--cf-space-2); flex-wrap: wrap; justify-content: center;
 }

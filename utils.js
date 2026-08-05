@@ -224,15 +224,62 @@ const Utils = {
     },
 
     finishGame(levelOptions = {}, stats = {}) {
-        const eventData = { 
+        const eventData = {
             gameId: this.gameId,
             levelOptions: levelOptions,
             stats: stats
         };
-        if (window.parent && window.parent !== window) {
+        if ((window.parent && window.parent !== window) || Utils.isEmbedded()) {
             window.parent.postMessage({ type: 'MICROGAME_COMPLETE', data: eventData }, '*');
         } else {
             console.log("Game Finished", eventData);
         }
+    },
+
+    // If it is inside an iframe
+    isEmbedded() {
+        return !!(window.parent && window.parent !== window);
+    },
+
+    getQueryParam(name) {
+        try {
+            return new URLSearchParams(window.location.search).get(name);
+        } catch (e) {
+            return null;
+        }
+    },
+
+    notifyReady() {
+        if (Utils.isEmbedded()) {
+            window.parent.postMessage({ type: 'MICROGAME_READY' }, '*');
+        }
+    },
+
+    notifyError(message) {
+        if (Utils.isEmbedded()) {
+            window.parent.postMessage({ type: 'MICROGAME_ERROR', data: { message } }, '*');
+        }
+    },
+
+    listenForHostCommands(handlers = { onStartLevel: ()=>{} }) {
+        if ((window.parent && window.parent !== window) || !Utils.isEmbedded()) return;
+        if (!handlers) { return; }
+
+        // In case css is different
+        document.body.classList.add('is-embedded');
+
+        window.addEventListener('message', (event) => {
+            const msg = event.data || {};
+            if (msg.type === 'MICROGAME_START_LEVEL' && typeof handlers.onStartLevel === 'function') {
+                handlers.onStartLevel(msg.data || {});
+            } else if (msg.type === 'MICROGAME_SET_MUTED') {
+                const muted = !!(msg.data && msg.data.muted);
+                Utils.setVolume(muted ? 0 : 1);
+            }
+        });
+
+        window.addEventListener('error', (event) => {
+            Utils.notifyError(event.message || 'Unknown error');
+        });
     }
 };

@@ -60,6 +60,9 @@ const Game = {
         window.addEventListener('pointermove', (e) => this.continueCellDrag(e.clientX, e.clientY));
         window.addEventListener('pointerup', () => this.endCellDrag());
         window.addEventListener('pointercancel', () => this.endCellDrag());
+
+        Utils.listenForHostCommands({ onStartLevel: () => this.startLevel() });
+        Utils.notifyReady();
     },
 
     // The title screen's PLAY button is a quick-play shortcut: it skips

@@ -16,6 +16,7 @@ let audioCtx = null;
 
 function playTone(freq, durationMs) {
     try {
+        if(window.volume == 0) { return; }
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const ctx = audioCtx;
         const osc = ctx.createOscillator();
@@ -74,6 +75,9 @@ const Game = {
         Utils.applyLocalization(this.i18n);
         this.attachInputHandlers();
         Utils.switchScreen('loading-screen', 'title-screen');
+
+        Utils.listenForHostCommands({ onStartLevel: () => this.startLevel() });
+        Utils.notifyReady();
     },
 
     attachInputHandlers: function() {

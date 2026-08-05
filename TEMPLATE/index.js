@@ -38,6 +38,9 @@ const Game = {
         await Utils.preloadAssets(assets);
         Utils.applyLocalization(this.i18n);
         Utils.switchScreen('loading-screen', 'title-screen');
+
+        Utils.listenForHostCommands({ onStartLevel: () => this.startLevel() });
+        Utils.notifyReady();
     },
 
     startLevel: function(options = {}) {

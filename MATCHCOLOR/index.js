@@ -48,6 +48,8 @@ const Game = {
         Utils.switchScreen('loading-screen', 'title-screen');
 
         window.addEventListener('resize', () => { if (this.current) this.sizeOptionsGrid(); });
+        Utils.listenForHostCommands({ onStartLevel: () => this.startLevel() });
+        Utils.notifyReady();
     },
 
     startDaily: function() {

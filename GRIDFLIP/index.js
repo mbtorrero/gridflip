@@ -21,12 +21,16 @@ const Game = {
         this.assetsPath = assetsPath;
         this.assets = assets;
         this.stats = config.stats || JSON.parse(localStorage.getItem(this.id + '/stats')) || {};
+        Utils.gameId = this.id;
 
         await Utils.preloadAssets(assets);
         Utils.setBackground(assets.find(t => t.id === 'bg'));
-        
+
         Utils.applyLocalization(this.i18n);
         Utils.switchScreen('loading-screen', 'title-screen');
+
+        Utils.listenForHostCommands({ onStartLevel: () => this.startLevel() });
+        Utils.notifyReady();
     },
 
     startDaily(){
