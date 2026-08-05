@@ -38,5 +38,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "このゲームを終了しますか？",
 	"QUIT_CONFIRM_BODY": "このレベルの進行状況は失われます。",
 	"BTN_KEEP_PLAYING": "続ける",
-	"BTN_EXIT": "終了する"
+	"BTN_EXIT": "終了する",
+	"LANGUAGE_SELECT_LABEL": "言語を変更"
 }

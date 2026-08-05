@@ -29,5 +29,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "এই খেলা ছেড়ে যাবেন?",
 	"QUIT_CONFIRM_BODY": "এই লেভেলের অগ্রগতি হারিয়ে যাবে।",
 	"BTN_KEEP_PLAYING": "খেলতে থাকুন",
-	"BTN_EXIT": "প্রস্থান"
+	"BTN_EXIT": "প্রস্থান",
+	"LANGUAGE_SELECT_LABEL": "ভাষা পরিবর্তন করুন"
 }

@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "続ける",
 	"BTN_EXIT": "終了する",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}：{time}でクリア"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}：{time}でクリア",
+	"LANGUAGE_SELECT_LABEL": "言語を変更"
 }

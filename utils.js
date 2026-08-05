@@ -161,6 +161,50 @@ const Utils = {
         return window.lb;
     },
 
+    LANGUAGE_STORAGE_KEY: 'cf_language',
+
+    getPreferredLanguage(fallback = 'en_US') {
+        try {
+            return localStorage.getItem(Utils.LANGUAGE_STORAGE_KEY) || fallback;
+        } catch (e) {
+            return fallback;
+        }
+    },
+
+    setPreferredLanguage(languageKey) {
+        try {
+            localStorage.setItem(Utils.LANGUAGE_STORAGE_KEY, languageKey);
+        } catch (e) { /* ignore */ }
+    },
+
+    // Fills in every `.cf-lang-switcher` on the page (there's one wherever the
+    // brand mark shows) with the shared language list from languages.js, and
+    // wires its native <select> to call onChange(languageKey) on selection.
+    // The <select> is invisible and sits on top of the styled button — that's
+    // what gives phones/tablets their native picker UI for free.
+    setupLanguageSwitcher(currentKey, onChange) {
+        const languages = window.CF_LANGUAGES || [];
+        document.querySelectorAll('.cf-lang-switcher').forEach(switcher => {
+            const select = switcher.querySelector('.cf-lang-select');
+            if (!select) return;
+            select.innerHTML = languages.map(l => `<option value="${l.code}">${l.label}</option>`).join('');
+            select.addEventListener('change', () => onChange(select.value));
+        });
+        Utils.syncLanguageSwitcher(currentKey);
+    },
+
+    // Updates every switcher's selected value and short-code label to match
+    // the language currently in use (call after loading a new bundle).
+    syncLanguageSwitcher(languageKey) {
+        const lang = (window.CF_LANGUAGES || []).find(l => l.code === languageKey);
+        document.querySelectorAll('.cf-lang-switcher').forEach(switcher => {
+            const select = switcher.querySelector('.cf-lang-select');
+            const label = switcher.querySelector('.cf-lang-current');
+            if (select) select.value = languageKey;
+            if (label) label.textContent = lang ? lang.short : languageKey;
+        });
+    },
+
     setVolume(val = 1.0) {
         window.volume = val;
         const audios = window.audio || {};

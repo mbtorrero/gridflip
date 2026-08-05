@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "OYNAMAYA DEVAM ET",
 	"BTN_EXIT": "ÇIKIŞ",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} sürede çözüldü"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} sürede çözüldü",
+	"LANGUAGE_SELECT_LABEL": "Dili değiştir"
 }

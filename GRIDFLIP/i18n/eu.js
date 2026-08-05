@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "JARRAITU",
 	"BTN_COPY_RESULT": "KOPIATU EMAITZA",
 	"BTN_COPIED": "KOPIATUTA!",
-	"SHARE_TEMPLATE": "Gridflip: {date} {steps} urratsetan ebatzia, {time}an"
+	"SHARE_TEMPLATE": "Gridflip: {date} {steps} urratsetan ebatzia, {time}an",
+	"LANGUAGE_SELECT_LABEL": "Aldatu hizkuntza"
 }

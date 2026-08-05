@@ -38,5 +38,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Opuścić tę grę?",
 	"QUIT_CONFIRM_BODY": "Twój postęp na tym poziomie zostanie utracony.",
 	"BTN_KEEP_PLAYING": "GRAJ DALEJ",
-	"BTN_EXIT": "WYJŚCIE"
+	"BTN_EXIT": "WYJŚCIE",
+	"LANGUAGE_SELECT_LABEL": "Zmień język"
 }

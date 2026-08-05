@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "DEVAM ET",
 	"BTN_COPY_RESULT": "SONUCU KOPYALA",
 	"BTN_COPIED": "KOPYALANDI!",
-	"SHARE_TEMPLATE": "Gridflip: {date} {steps} hamlede {time} içinde çözüldü"
+	"SHARE_TEMPLATE": "Gridflip: {date} {steps} hamlede {time} içinde çözüldü",
+	"LANGUAGE_SELECT_LABEL": "Dili değiştir"
 }

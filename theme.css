@@ -190,6 +190,7 @@ button {
    on every screen — same look whether it's a <div> or an <a>. */
 .cf-brand {
   display: flex; align-items: center; gap: var(--cf-space-2);
+  min-width: 0;
   font-weight: 700; font-size: var(--cf-type-label); color: var(--cf-text-secondary);
   letter-spacing: 0.02em;
   text-decoration: none; cursor: pointer;
@@ -197,8 +198,47 @@ button {
 }
 .cf-brand:hover { color: var(--cf-text-primary); }
 .cf-brand svg { width: 20px; height: 20px; color: var(--cf-cyan-400); flex-shrink: 0; }
+.cf-brand span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 body.is-embedded a.cf-brand { display: none; }
+
+.cf-topbar-left {
+  display: flex; align-items: center; gap: var(--cf-space-2);
+  min-width: 0;
+}
+
+/* ---- Language switcher -------------------------------------------------
+   Always sits beside the brand mark, top-left, on every screen where the
+   brand shows. It's a styled button with a real <select> layered
+   invisibly on top and stretched to fill it — clicking anywhere on the
+   button opens the browser's native option list, which is what gives
+   phones/tablets their native picker UI for free, no custom menu needed. */
+.cf-lang-switcher {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--cf-space-1);
+  height: 44px; min-width: 44px;
+  padding: 0 var(--cf-space-2);
+  background: var(--cf-bg-panel);
+  border: 1px solid var(--cf-border-soft);
+  border-radius: var(--cf-radius-md);
+  color: var(--cf-text-primary);
+  flex-shrink: 0;
+  transition: border-color var(--cf-motion-base) var(--cf-ease-standard);
+}
+.cf-lang-switcher:hover { border-color: var(--cf-border-medium); }
+.cf-lang-switcher svg { width: 18px; height: 18px; flex-shrink: 0; pointer-events: none; }
+.cf-lang-switcher .cf-lang-current {
+  font-size: var(--cf-type-label); font-weight: 700; letter-spacing: 0.02em;
+  pointer-events: none;
+}
+.cf-lang-select {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  margin: 0; padding: 0; border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
 
 .cf-hud {
   display: flex; gap: var(--cf-space-2); flex-wrap: wrap; justify-content: center;

@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "DOORGAAN",
 	"BTN_COPY_RESULT": "RESULTAAT KOPIËREN",
 	"BTN_COPIED": "GEKOPIEERD!",
-	"SHARE_TEMPLATE": "Gridflip: {date} Opgelost in {steps} stappen in {time}"
+	"SHARE_TEMPLATE": "Gridflip: {date} Opgelost in {steps} stappen in {time}",
+	"LANGUAGE_SELECT_LABEL": "Taal wijzigen"
 }

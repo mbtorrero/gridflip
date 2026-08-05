@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "계속하기",
 	"BTN_EXIT": "종료",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} 만에 해결"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} 만에 해결",
+	"LANGUAGE_SELECT_LABEL": "언어 변경"
 }

@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "続ける",
 	"BTN_COPY_RESULT": "結果をコピー",
 	"BTN_COPIED": "コピーしました！",
-	"SHARE_TEMPLATE": "Gridflip: {date} {steps}手、{time}でクリア"
+	"SHARE_TEMPLATE": "Gridflip: {date} {steps}手、{time}でクリア",
+	"LANGUAGE_SELECT_LABEL": "言語を変更"
 }

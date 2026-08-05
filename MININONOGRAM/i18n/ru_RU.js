@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "ПРОДОЛЖИТЬ ИГРУ",
 	"BTN_EXIT": "ВЫХОД",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: решено за {time}"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: решено за {time}",
+	"LANGUAGE_SELECT_LABEL": "Изменить язык"
 }

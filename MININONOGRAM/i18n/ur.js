@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "کھیلتے رہیں",
 	"BTN_EXIT": "باہر نکلیں",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} میں حل کیا"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} میں حل کیا",
+	"LANGUAGE_SELECT_LABEL": "زبان تبدیل کریں"
 }

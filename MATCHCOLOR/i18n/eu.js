@@ -39,5 +39,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Jokoa utzi?",
 	"QUIT_CONFIRM_BODY": "Maila honetako aurrerapena galduko duzu.",
 	"BTN_KEEP_PLAYING": "JARRAITU JOKATZEN",
-	"BTN_EXIT": "IRTEN"
+	"BTN_EXIT": "IRTEN",
+	"LANGUAGE_SELECT_LABEL": "Aldatu hizkuntza"
 }

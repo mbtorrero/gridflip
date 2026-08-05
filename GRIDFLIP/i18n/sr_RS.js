@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "НАСТАВИ",
 	"BTN_COPY_RESULT": "КОПИРАЈ РЕЗУЛТАТ",
 	"BTN_COPIED": "КОПИРАНО!",
-	"SHARE_TEMPLATE": "Gridflip: {date} Решено у {steps} потеза за {time}"
+	"SHARE_TEMPLATE": "Gridflip: {date} Решено у {steps} потеза за {time}",
+	"LANGUAGE_SELECT_LABEL": "Промени језик"
 }

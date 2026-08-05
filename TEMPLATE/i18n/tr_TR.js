@@ -29,5 +29,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Bu oyundan çıkılsın mı?",
 	"QUIT_CONFIRM_BODY": "Bu seviyedeki ilerlemen kaybolacak.",
 	"BTN_KEEP_PLAYING": "OYNAMAYA DEVAM ET",
-	"BTN_EXIT": "ÇIKIŞ"
+	"BTN_EXIT": "ÇIKIŞ",
+	"LANGUAGE_SELECT_LABEL": "Dili değiştir"
 }

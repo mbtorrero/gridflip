@@ -39,5 +39,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "게임을 종료하시겠습니까?",
 	"QUIT_CONFIRM_BODY": "이 레벨의 진행 상황이 사라집니다.",
 	"BTN_KEEP_PLAYING": "계속하기",
-	"BTN_EXIT": "종료"
+	"BTN_EXIT": "종료",
+	"LANGUAGE_SELECT_LABEL": "언어 변경"
 }

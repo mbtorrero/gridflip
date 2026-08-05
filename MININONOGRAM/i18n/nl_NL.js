@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "DOORSPELEN",
 	"BTN_EXIT": "AFSLUITEN",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: opgelost in {time}"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: opgelost in {time}",
+	"LANGUAGE_SELECT_LABEL": "Taal wijzigen"
 }

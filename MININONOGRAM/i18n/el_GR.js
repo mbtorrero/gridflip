@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "ΣΥΝΕΧΙΣΕ",
 	"BTN_EXIT": "ΕΞΟΔΟΣ",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: λύθηκε σε {time}"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: λύθηκε σε {time}",
+	"LANGUAGE_SELECT_LABEL": "Αλλαγή γλώσσας"
 }

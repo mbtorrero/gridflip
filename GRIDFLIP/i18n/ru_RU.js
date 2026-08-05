@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "ДАЛЕЕ",
 	"BTN_COPY_RESULT": "КОПИРОВАТЬ РЕЗУЛЬТАТ",
 	"BTN_COPIED": "СКОПИРОВАНО!",
-	"SHARE_TEMPLATE": "Gridflip: {date} Решено за {steps} шагов за {time}"
+	"SHARE_TEMPLATE": "Gridflip: {date} Решено за {steps} шагов за {time}",
+	"LANGUAGE_SELECT_LABEL": "Изменить язык"
 }

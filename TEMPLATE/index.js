@@ -25,7 +25,7 @@ const Game = {
     startTime: 0,
 
     init: async function(config = {}) {
-        const languageKey = config.languageKey || 'en_US';
+        const languageKey = Utils.getPreferredLanguage(config.languageKey || 'en_US');
         const assetsPath = config.assetsPath || (window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/');
 
         const assets = await Utils.loadScript(assetsPath + 'assets.js', 'assets') || [];
@@ -37,10 +37,18 @@ const Game = {
 
         await Utils.preloadAssets(assets);
         Utils.applyLocalization(this.i18n);
+        Utils.setupLanguageSwitcher(languageKey, (newKey) => this.changeLanguage(newKey));
         Utils.switchScreen('loading-screen', 'title-screen');
 
         Utils.listenForHostCommands({ onStartLevel: () => this.startLevel() });
         Utils.notifyReady();
+    },
+
+    changeLanguage: async function(languageKey) {
+        this.i18n = await Utils.loadLanguageBundle(this.assetsPath, languageKey);
+        Utils.applyLocalization(this.i18n);
+        Utils.setPreferredLanguage(languageKey);
+        Utils.syncLanguageSwitcher(languageKey);
     },
 
     startLevel: function(options = {}) {

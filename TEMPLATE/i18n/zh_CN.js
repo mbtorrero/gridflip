@@ -29,5 +29,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "要离开这个游戏吗？",
 	"QUIT_CONFIRM_BODY": "你在本关卡的进度将会丢失。",
 	"BTN_KEEP_PLAYING": "继续游戏",
-	"BTN_EXIT": "离开"
+	"BTN_EXIT": "离开",
+	"LANGUAGE_SELECT_LABEL": "更改语言"
 }

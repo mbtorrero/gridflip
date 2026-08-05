@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "JARRAITU JOKATZEN",
 	"BTN_EXIT": "IRTEN",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time}an ebatzia"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time}an ebatzia",
+	"LANGUAGE_SELECT_LABEL": "Aldatu hizkuntza"
 }

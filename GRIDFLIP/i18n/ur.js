@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "جاری رکھیں",
 	"BTN_COPY_RESULT": "نتیجہ کاپی کریں",
 	"BTN_COPIED": "کاپی ہو گیا!",
-	"SHARE_TEMPLATE": "Gridflip: {date} {steps} قدموں میں {time} میں حل کیا"
+	"SHARE_TEMPLATE": "Gridflip: {date} {steps} قدموں میں {time} میں حل کیا",
+	"LANGUAGE_SELECT_LABEL": "زبان تبدیل کریں"
 }

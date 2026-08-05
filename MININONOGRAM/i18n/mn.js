@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "ТОГЛОЛТЫГ ҮРГЭЛЖЛҮҮЛЭХ",
 	"BTN_EXIT": "ГАРАХ",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} хугацаанд бодсон"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} хугацаанд бодсон",
+	"LANGUAGE_SELECT_LABEL": "Хэл өөрчлөх"
 }

@@ -39,5 +39,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Έξοδος από το παιχνίδι;",
 	"QUIT_CONFIRM_BODY": "Η πρόοδός σου σε αυτό το επίπεδο θα χαθεί.",
 	"BTN_KEEP_PLAYING": "ΣΥΝΕΧΙΣΕ",
-	"BTN_EXIT": "ΕΞΟΔΟΣ"
+	"BTN_EXIT": "ΕΞΟΔΟΣ",
+	"LANGUAGE_SELECT_LABEL": "Αλλαγή γλώσσας"
 }

@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "ҮРГЭЛЖЛҮҮЛЭХ",
 	"BTN_COPY_RESULT": "ҮР ДҮНГ ХУУЛАХ",
 	"BTN_COPIED": "ХУУЛАГДСАН!",
-	"SHARE_TEMPLATE": "Gridflip: {date} {steps} алхамаар {time} хугацаанд бодсон"
+	"SHARE_TEMPLATE": "Gridflip: {date} {steps} алхамаар {time} хугацаанд бодсон",
+	"LANGUAGE_SELECT_LABEL": "Хэл өөрчлөх"
 }

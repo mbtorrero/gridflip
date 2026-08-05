@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "继续",
 	"BTN_COPY_RESULT": "复制结果",
 	"BTN_COPIED": "已复制！",
-	"SHARE_TEMPLATE": "Gridflip：{date} 用{steps}步，耗时{time}解开"
+	"SHARE_TEMPLATE": "Gridflip：{date} 用{steps}步，耗时{time}解开",
+	"LANGUAGE_SELECT_LABEL": "更改语言"
 }

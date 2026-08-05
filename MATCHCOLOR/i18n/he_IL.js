@@ -39,5 +39,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "לעזוב את המשחק?",
 	"QUIT_CONFIRM_BODY": "ההתקדמות שלך בשלב הזה תאבד.",
 	"BTN_KEEP_PLAYING": "המשך לשחק",
-	"BTN_EXIT": "צא"
+	"BTN_EXIT": "צא",
+	"LANGUAGE_SELECT_LABEL": "החלף שפה"
 }

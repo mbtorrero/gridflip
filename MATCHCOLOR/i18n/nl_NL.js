@@ -39,5 +39,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Dit spel verlaten?",
 	"QUIT_CONFIRM_BODY": "Je voortgang in dit level gaat verloren.",
 	"BTN_KEEP_PLAYING": "DOORSPELEN",
-	"BTN_EXIT": "AFSLUITEN"
+	"BTN_EXIT": "AFSLUITEN",
+	"LANGUAGE_SELECT_LABEL": "Taal wijzigen"
 }

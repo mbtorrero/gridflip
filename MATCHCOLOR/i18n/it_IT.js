@@ -39,5 +39,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Uscire dal gioco?",
 	"QUIT_CONFIRM_BODY": "I progressi in questo livello andranno persi.",
 	"BTN_KEEP_PLAYING": "CONTINUA",
-	"BTN_EXIT": "ESCI"
+	"BTN_EXIT": "ESCI",
+	"LANGUAGE_SELECT_LABEL": "Cambia lingua"
 }

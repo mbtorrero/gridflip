@@ -39,5 +39,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Покинуть игру?",
 	"QUIT_CONFIRM_BODY": "Ваш прогресс на этом уровне будет потерян.",
 	"BTN_KEEP_PLAYING": "ПРОДОЛЖИТЬ ИГРУ",
-	"BTN_EXIT": "ВЫХОД"
+	"BTN_EXIT": "ВЫХОД",
+	"LANGUAGE_SELECT_LABEL": "Изменить язык"
 }

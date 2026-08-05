@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "DALEJ",
 	"BTN_COPY_RESULT": "KOPIUJ WYNIK",
 	"BTN_COPIED": "SKOPIOWANO!",
-	"SHARE_TEMPLATE": "Gridflip: {date} Rozwiązane w {steps} krokach w czasie {time}"
+	"SHARE_TEMPLATE": "Gridflip: {date} Rozwiązane w {steps} krokach w czasie {time}",
+	"LANGUAGE_SELECT_LABEL": "Zmień język"
 }

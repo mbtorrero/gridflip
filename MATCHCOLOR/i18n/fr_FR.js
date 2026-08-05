@@ -39,5 +39,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Quitter cette partie ?",
 	"QUIT_CONFIRM_BODY": "Votre progression sur ce niveau sera perdue.",
 	"BTN_KEEP_PLAYING": "CONTINUER",
-	"BTN_EXIT": "SORTIR"
+	"BTN_EXIT": "SORTIR",
+	"LANGUAGE_SELECT_LABEL": "Changer de langue"
 }

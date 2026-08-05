@@ -43,5 +43,6 @@ window.lb = {
 	"BTN_KEEP_PLAYING": "খেলতে থাকুন",
 	"BTN_EXIT": "প্রস্থান",
 
-	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} সময়ে সমাধান হয়েছে"
+	"SHARE_TEMPLATE": "Mini Nonogram {date}: {time} সময়ে সমাধান হয়েছে",
+	"LANGUAGE_SELECT_LABEL": "ভাষা পরিবর্তন করুন"
 }

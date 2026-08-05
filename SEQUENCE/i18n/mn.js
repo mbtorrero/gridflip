@@ -38,5 +38,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Тоглоомоос гарах уу?",
 	"QUIT_CONFIRM_BODY": "Энэ түвшний явц устана.",
 	"BTN_KEEP_PLAYING": "ТОГЛОЛТЫГ ҮРГЭЛЖЛҮҮЛЭХ",
-	"BTN_EXIT": "ГАРАХ"
+	"BTN_EXIT": "ГАРАХ",
+	"LANGUAGE_SELECT_LABEL": "Хэл өөрчлөх"
 }

@@ -29,5 +29,6 @@ window.lb = {
 	"QUIT_CONFIRM_TITLE": "Sair deste jogo?",
 	"QUIT_CONFIRM_BODY": "O teu progresso neste nível será perdido.",
 	"BTN_KEEP_PLAYING": "CONTINUAR A JOGAR",
-	"BTN_EXIT": "SAIR"
+	"BTN_EXIT": "SAIR",
+	"LANGUAGE_SELECT_LABEL": "Alterar idioma"
 }

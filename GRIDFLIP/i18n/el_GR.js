@@ -34,5 +34,6 @@ window.lb = {
 	"BTN_CONTINUE": "ΣΥΝΕΧΕΙΑ",
 	"BTN_COPY_RESULT": "ΑΝΤΙΓΡΑΦΗ ΑΠΟΤΕΛΕΣΜΑΤΟΣ",
 	"BTN_COPIED": "ΑΝΤΙΓΡΑΦΗΚΕ!",
-	"SHARE_TEMPLATE": "Gridflip: {date} Λύθηκε σε {steps} βήματα σε {time}"
+	"SHARE_TEMPLATE": "Gridflip: {date} Λύθηκε σε {steps} βήματα σε {time}",
+	"LANGUAGE_SELECT_LABEL": "Αλλαγή γλώσσας"
 }

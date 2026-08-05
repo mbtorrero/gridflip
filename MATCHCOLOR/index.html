@@ -31,10 +31,17 @@
 
     <div id="title-screen" class="screen">
         <div class="cf-topbar">
-            <a class="cf-brand" href="../index.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
-                <span data-i18n="BRAND">COGNIFIT MICROGAMES</span>
-            </a>
+            <div class="cf-topbar-left">
+                <a class="cf-brand" href="../index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
+                    <span data-i18n="BRAND">COGNIFIT MICROGAMES</span>
+                </a>
+                <div class="cf-lang-switcher">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span class="cf-lang-current">EN</span>
+                    <select class="cf-lang-select" data-i18n-aria="LANGUAGE_SELECT_LABEL" aria-label="Change language"></select>
+                </div>
+            </div>
         </div>
         <div class="cf-screen-body">
             <h1 class="cf-game-title" data-i18n="NAME">MATCH THE COLOR</h1>
@@ -95,9 +102,16 @@
 
     <div id="game-screen" class="screen">
         <div class="cf-topbar">
-            <div class="cf-brand">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
-                <span data-i18n="NAME">MATCH THE COLOR</span>
+            <div class="cf-topbar-left">
+                <div class="cf-brand">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
+                    <span data-i18n="NAME">MATCH THE COLOR</span>
+                </div>
+                <div class="cf-lang-switcher">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span class="cf-lang-current">EN</span>
+                    <select class="cf-lang-select" data-i18n-aria="LANGUAGE_SELECT_LABEL" aria-label="Change language"></select>
+                </div>
             </div>
             <button class="cf-icon-btn" data-i18n-aria="BTN_QUIT" aria-label="Quit" onclick="Game.requestQuit()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
@@ -139,6 +153,7 @@
         </div>
     </div>
 
+    <script src="../languages.js"></script>
     <script src="../utils.js"></script>
     <script src="index.js"></script>
 </body>
