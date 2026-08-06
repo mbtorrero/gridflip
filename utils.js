@@ -227,6 +227,15 @@ const Utils = {
         const showEl = document.getElementById(showId);
         if (hideEl) hideEl.classList.remove('active');
         if (showEl) showEl.classList.add('active');
+
+        // Every game funnels actual gameplay through a 'game-screen' id, so
+        // this is the one place that can tell the host apart from menus
+        // (title/level-select/instructions) without each game wiring it up.
+        if (showId === 'game-screen' && hideId !== 'game-screen') {
+            Utils.notifyLevelStarted();
+        } else if (hideId === 'game-screen' && showId !== 'game-screen') {
+            Utils.notifyLevelExited();
+        }
     },
 
     simpleUniqueArray(array = []) {
@@ -302,6 +311,18 @@ const Utils = {
     notifyError(message) {
         if (Utils.isEmbedded()) {
             window.parent.postMessage({ type: 'MICROGAME_ERROR', data: { message } }, '*');
+        }
+    },
+
+    notifyLevelStarted() {
+        if (Utils.isEmbedded()) {
+            window.parent.postMessage({ type: 'MICROGAME_LEVEL_STARTED' }, '*');
+        }
+    },
+
+    notifyLevelExited() {
+        if (Utils.isEmbedded()) {
+            window.parent.postMessage({ type: 'MICROGAME_LEVEL_EXITED' }, '*');
         }
     },
 
