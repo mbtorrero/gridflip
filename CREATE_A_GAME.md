@@ -1,6 +1,6 @@
 # Cómo crear un microjuego nuevo
 
-Guía paso a paso. Si eres una IA, esto complementa a [`AGENTS.md`](AGENTS.md); si eres una persona, no necesitas saber programación avanzada para seguir esto — cada archivo es corto y el patrón se repite igual en los tres juegos existentes.
+Guía paso a paso. Si eres una IA, esto complementa a [`AGENTS.md`](AGENTS.md); si eres una persona, no necesitas saber programación avanzada para seguir esto — cada archivo es corto y el patrón se repite igual en los cuatro juegos existentes.
 
 ## Filosofía (léelo antes de empezar)
 
@@ -61,13 +61,14 @@ Opcionales, solo si tu juego los necesita de verdad:
 
 ### 5. Sigue las reglas de siempre (no son opcionales)
 
-- El enlace de "volver a inicio" (la marca, arriba a la izquierda) **solo va en la pantalla de título**. Ninguna otra pantalla lo lleva, y durante la partida NO se añade — ahí ya está el botón de Quit (arriba a la derecha) con su modal de confirmación, que vuelve a la pantalla de título de tu juego.
+- El enlace de "volver a inicio" (la marca, arriba a la izquierda) **solo va en la pantalla de título**. Ninguna otra pantalla lo lleva.
+- **Orden fijo de la topbar, igual en los cuatro juegos**: marca, salir (Quit + modal de confirmación), silenciar, idioma, info (instrucciones). Salir e info solo aparecen en la topbar de la pantalla de juego — la de título solo lleva marca/silenciar/idioma. Quit es la única forma de salir a mitad de partida y siempre vuelve a la pantalla de título de tu juego. Info abre `#instructions-modal` (mismo contenido que `#instructions-screen`, para no tener que salir a mitad de partida solo para consultarlo). `TEMPLATE/` ya trae los cuatro botones — no los quites ni cambies el orden.
 - Si hay niveles de dificultad, la dificultad elegida es **fija durante todo el nivel** — nunca debe ir subiendo ronda a ronda dentro del mismo nivel.
 - **Nunca debe salir una barra de scroll.** Usa `clamp(min, Xvmin, max)` para tamaños en CSS, o calcula tamaños en JS acotando por ancho Y alto (mira `sizeOptionsGrid` en `MATCHCOLOR/index.js` como ejemplo).
 - Usa siempre las clases de `theme.css` (`.cf-button-primary`, `.cf-tile`, `.cf-hud-card`, `.cf-modal`, etc.) en vez de inventar estilos nuevos para cosas que ya existen.
 - Iconos: SVG en línea, nunca emoji, en la interfaz. (Emoji sólo está bien dentro de un texto para compartir/copiar, si tu juego tiene esa función — ver `SHARE_TEMPLATE` en MATCHCOLOR).
 - **Evita texto dentro del juego siempre que un visual sirva igual.** Por ejemplo, para mostrar en qué ronda vas usa las `.progress-dots` de `theme.css` (un punto gris por ronda, se pone verde con un check al completarla) en vez de un texto tipo "Ronda 3/8" — es más rápido de leer y no hay que traducirlo. `TEMPLATE/` ya lo hace así.
-- Al terminar un nivel, muestra el `#result-modal` con algo relevante para tu juego (tiempo, aciertos, rondas...) — nunca vuelvas en silencio a la pantalla de título.
+- Al terminar un nivel, muestra el `#result-modal` con algo relevante para tu juego (tiempo, aciertos, rondas...) — nunca vuelvas en silencio a la pantalla de título. Trae dos grupos de botones ya montados en `TEMPLATE/` (`#result-play-again-actions` y `#result-continue-actions`), que `Game.finishLevel` alterna según `levelOptions.daily`: nivel normal → PLAY AGAIN + EXIT; challenge diario → un único CONTINUE (solo hay un diario al día, no tiene sentido "jugar otra vez"). Si tu juego no tiene modo diario, deja siempre visible el de play-again (mira SEQUENCE).
 - **Gate de contraseña y `noindex` temporales**: mientras el sitio esté en un GitHub Pages público (antes de desplegar con auth real en AWS, ver `DEPLOY.md`), cada `index.html` lleva un `<script>` embebido al inicio del `<head>` que pide una contraseña con `prompt()`, y una `<meta name="robots" content="noindex, nofollow">` para que no lo indexen buscadores. `TEMPLATE/index.html` ya trae ambos — cópialos tal cual, no los quites ni los muevas a `index.js`.
 
 ### 6. Pruébalo
@@ -91,7 +92,7 @@ Con eso ya aparece como tarjeta en el launcher (`index.html` de la raíz).
 
 - [ ] Carpeta renombrada, `id`/`NAME` actualizados en los 4 sitios (metadata, i18n, index.js, index.html).
 - [ ] Mecánica reemplazada, pantallas de título/nivel/instrucciones/estadísticas funcionando.
-- [ ] Solo la pantalla de título tiene el enlace de inicio; el juego en marcha solo tiene Quit.
+- [ ] Solo la pantalla de título tiene el enlace de inicio; la topbar de la pantalla de juego mantiene el orden marca/salir/silenciar/idioma/info.
 - [ ] Dificultad (si aplica) fija por nivel, no por ronda.
 - [ ] Sin scroll en ningún tamaño de pantalla razonable.
 - [ ] Modal de resultado muestra algo específico del juego, no un mensaje genérico vacío.

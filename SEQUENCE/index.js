@@ -322,6 +322,9 @@ const Game = {
         this.quit();
     },
 
+    showInstructions: function() { document.getElementById('instructions-modal').classList.add('active'); },
+    hideInstructions: function() { document.getElementById('instructions-modal').classList.remove('active'); },
+
     showStats: function() {
         document.getElementById('stat-games-won').innerText = this.stats.gamesCompleted || 0;
         Utils.switchScreen('title-screen', 'stats-screen');

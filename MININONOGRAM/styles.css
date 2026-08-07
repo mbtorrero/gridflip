@@ -23,7 +23,11 @@
 }
 
 .nono-toolbar {
-    display: flex; align-items: center; justify-content: space-between;
+    /* Used to also hold the instructions button on the left (info left,
+       mark-toggle right via space-between) — that moved to the topbar
+       alongside every other game's, so this is now flex-end to keep the
+       mark toggle where it visually was. */
+    display: flex; align-items: center; justify-content: flex-end;
     gap: var(--cf-space-3);
 }
 .nono-mark-toggle-group {

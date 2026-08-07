@@ -123,6 +123,9 @@
                     <span class="cf-lang-current">EN</span>
                     <select class="cf-lang-select" data-i18n-aria="LANGUAGE_SELECT_LABEL" aria-label="Change language"></select>
                 </div>
+                <button class="cf-icon-btn" data-i18n-aria="BTN_INSTRUCTIONS" aria-label="Instructions" onclick="Game.showInstructions()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="11"/><line x1="12" y1="8" x2="12" y2="8.01"/></svg>
+                </button>
             </div>
         </div>
 
@@ -134,6 +137,16 @@
         </div>
 
         <p id="live-region" class="cf-sr-only" aria-live="polite"></p>
+    </div>
+
+    <div id="instructions-modal" class="cf-modal-overlay">
+        <div class="cf-modal" role="dialog" aria-modal="true" aria-labelledby="instructions-modal-title">
+            <h2 id="instructions-modal-title" data-i18n="HOW_TO_PLAY">HOW TO PLAY</h2>
+            <p class="cf-game-subtitle" data-i18n="INSTRUCTIONS">A target color appears at the top. Tap the matching swatch below. Each round the choices get closer together — the dots above track how you did, in order.</p>
+            <div class="cf-modal-actions">
+                <button class="cf-button-primary" data-i18n="BTN_CONTINUE" onclick="Game.hideInstructions()">CONTINUE</button>
+            </div>
+        </div>
     </div>
 
     <div id="quit-modal" class="cf-modal-overlay">

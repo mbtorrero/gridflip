@@ -24,7 +24,8 @@ Lo único que sí se adoptó de ese documento son los tokens visuales (colores, 
 
 ## Convenciones que no debes romper (resumen — detalle completo en README.md)
 
-- El enlace "volver a inicio" (marca arriba a la izquierda) **solo existe en la pantalla de título** de cada juego. En ninguna otra pantalla, y nunca a mitad de partida — ahí solo existe el botón Quit (arriba a la derecha, con confirmación), que vuelve a la pantalla de título de ESE juego, no al launcher.
+- El enlace "volver a inicio" (marca arriba a la izquierda) **solo existe en la pantalla de título** de cada juego. En ninguna otra pantalla.
+- Orden fijo de la topbar en los cuatro juegos: marca, salir (Quit + confirmación), silenciar, idioma, info. Salir e info solo en la pantalla de juego — la de título solo lleva marca/silenciar/idioma. Quit es la única forma de salir a mitad de partida y vuelve a la pantalla de título de ESE juego, no al launcher.
 - La dificultad elegida (fácil/media/difícil/experto) es **constante durante todo el nivel**, nunca escala ronda a ronda dentro del mismo nivel.
 - Nunca debe aparecer una barra de scroll. Los tamaños se calculan con `clamp(min, Xvmin, max)` o en JS acotando por ancho Y alto.
 - Nada de emojis como iconos funcionales en la interfaz (SVG en línea, sí). Emoji solo está permitido dentro de texto plano para compartir (copy/share), donde es la única forma de transmitir color en texto sin formato.

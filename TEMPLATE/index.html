@@ -42,6 +42,10 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
                     <span data-i18n="BRAND">COGNIFIT MICROGAMES</span>
                 </a>
+                <button class="cf-icon-btn cf-mute-btn" data-i18n-aria="BTN_MUTE" aria-label="Mute" onclick="Utils.toggleMute()">
+                    <svg class="cf-icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                    <svg class="cf-icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
+                </button>
                 <div class="cf-lang-switcher">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     <span class="cf-lang-current">EN</span>
@@ -100,20 +104,31 @@
 
     <div id="game-screen" class="screen">
         <div class="cf-topbar">
+            <!-- Fixed order, same on every game: brand, exit (Quit), mute,
+                 language, info (instructions). Exit/info only ever appear
+                 on the game screen — see the title-screen topbar above,
+                 which only has brand/mute/language. -->
             <div class="cf-topbar-left">
                 <div class="cf-brand">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
                     <span data-i18n="NAME">TEMPLATE</span>
                 </div>
+                <button class="cf-icon-btn" data-i18n-aria="BTN_QUIT" aria-label="Quit" onclick="Game.requestQuit()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+                </button>
+                <button class="cf-icon-btn cf-mute-btn" data-i18n-aria="BTN_MUTE" aria-label="Mute" onclick="Utils.toggleMute()">
+                    <svg class="cf-icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                    <svg class="cf-icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
+                </button>
                 <div class="cf-lang-switcher">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     <span class="cf-lang-current">EN</span>
                     <select class="cf-lang-select" data-i18n-aria="LANGUAGE_SELECT_LABEL" aria-label="Change language"></select>
                 </div>
+                <button class="cf-icon-btn" data-i18n-aria="BTN_INSTRUCTIONS" aria-label="Instructions" onclick="Game.showInstructions()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="11"/><line x1="12" y1="8" x2="12" y2="8.01"/></svg>
+                </button>
             </div>
-            <button class="cf-icon-btn" data-i18n-aria="BTN_QUIT" aria-label="Quit" onclick="Game.requestQuit()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-            </button>
         </div>
 
         <div class="cf-screen-body">
@@ -125,6 +140,19 @@
         </div>
 
         <p id="live-region" class="cf-sr-only" aria-live="polite"></p>
+    </div>
+
+    <!-- Same content as #instructions-screen above, just reachable mid-game
+         too via the topbar's info button, without quitting to the title
+         screen first. -->
+    <div id="instructions-modal" class="cf-modal-overlay">
+        <div class="cf-modal" role="dialog" aria-modal="true" aria-labelledby="instructions-modal-title">
+            <h2 id="instructions-modal-title" data-i18n="HOW_TO_PLAY">HOW TO PLAY</h2>
+            <p class="cf-game-subtitle" data-i18n="INSTRUCTIONS">Tap the marked tile. Do it a few times in a row to finish the level.</p>
+            <div class="cf-modal-actions">
+                <button class="cf-button-primary" data-i18n="BTN_CONTINUE" onclick="Game.hideInstructions()">CONTINUE</button>
+            </div>
+        </div>
     </div>
 
     <div id="quit-modal" class="cf-modal-overlay">
@@ -142,7 +170,17 @@
         <div class="cf-modal" role="alertdialog" aria-modal="true" aria-labelledby="result-modal-title">
             <h2 id="result-modal-title" data-i18n="RESULT_TITLE_WIN">Level complete!</h2>
             <p class="cf-game-subtitle"><span data-i18n="RESULT_TIME_LABEL">Time</span>: <span id="result-time">0:00</span></p>
-            <div class="cf-modal-actions">
+            <!-- Two action sets, toggled in Game.finishLevel based on
+                 levelOptions.daily: play-again is offered after a normal
+                 level (TEMPLATE has no daily mode, so this is always
+                 shown — see SEQUENCE for the same case in a real game).
+                 A daily result shows #result-continue-actions instead,
+                 since there's only one daily challenge per day. -->
+            <div id="result-play-again-actions" class="cf-modal-actions">
+                <button class="cf-button-primary" data-i18n="BTN_PLAY_AGAIN" onclick="Game.playAgain()">PLAY AGAIN</button>
+                <button class="cf-button-secondary" data-i18n="BTN_EXIT" onclick="Game.acknowledgeResult()">EXIT</button>
+            </div>
+            <div id="result-continue-actions" class="cf-modal-actions" style="display:none;">
                 <button class="cf-button-primary" data-i18n="BTN_CONTINUE" onclick="Game.acknowledgeResult()">CONTINUE</button>
             </div>
         </div>

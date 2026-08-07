@@ -1,7 +1,10 @@
 // TEMPLATE — minimal working microgame. Copy this whole folder, rename
 // TEMPLATE everywhere (folder name, id, i18n NAME), then replace the
-// mechanic below (marked with TODO). Everything else — screens, quit
-// modal, result modal, stats, difficulty selection — already works.
+// mechanic below (marked with TODO). Everything else — screens, mute
+// button, mid-game instructions, quit modal, result modal (play again /
+// continue), stats, difficulty selection, embedding in the CogniFit feed
+// (Utils.setupSwipeForwarding, Utils.listenForHostCommands) — already
+// works.
 
 const CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
 
@@ -38,6 +41,8 @@ const Game = {
         await Utils.preloadAssets(assets);
         Utils.applyLocalization(this.i18n);
         Utils.setupLanguageSwitcher(languageKey, (newKey) => this.changeLanguage(newKey));
+        Utils.setupMuteButton();
+        Utils.setupSwipeForwarding();
         Utils.switchScreen('loading-screen', 'title-screen');
 
         Utils.listenForHostCommands({ onStartLevel: () => this.startLevel() });
@@ -125,7 +130,21 @@ const Game = {
         Utils.finishGame(this.levelOptions, { seconds });
 
         document.getElementById('result-time').innerText = Utils.formatTime(seconds);
+
+        // TEMPLATE has no daily mode, so isDaily is always false here and
+        // play-again is always offered — this check is only here so the
+        // pattern matches games that do have one (see MATCHCOLOR/GRIDFLIP):
+        // a daily result shows #result-continue-actions instead, since
+        // there's only one daily challenge per day.
+        const isDaily = !!this.levelOptions.daily;
+        document.getElementById('result-play-again-actions').style.display = isDaily ? 'none' : '';
+        document.getElementById('result-continue-actions').style.display = isDaily ? '' : 'none';
         document.getElementById('result-modal').classList.add('active');
+    },
+
+    playAgain: function() {
+        document.getElementById('result-modal').classList.remove('active');
+        this.startLevel({ difficulty: this.levelOptions.difficulty });
     },
 
     acknowledgeResult: function() {
@@ -144,6 +163,11 @@ const Game = {
         document.getElementById('quit-modal').classList.remove('active');
         this.quit();
     },
+
+    // Same content as #instructions-screen, reachable mid-game via the
+    // topbar's info button — see index.html for why there are two copies.
+    showInstructions: function() { document.getElementById('instructions-modal').classList.add('active'); },
+    hideInstructions: function() { document.getElementById('instructions-modal').classList.remove('active'); },
 
     showStats: function() {
         document.getElementById('stat-games-won').innerText = this.stats.gamesCompleted || 0;

@@ -135,6 +135,9 @@
                     <span class="cf-lang-current">EN</span>
                     <select class="cf-lang-select" data-i18n-aria="LANGUAGE_SELECT_LABEL" aria-label="Change language"></select>
                 </div>
+                <button class="cf-icon-btn" data-i18n-aria="BTN_INSTRUCTIONS" aria-label="Instructions" onclick="Game.showInstructions()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="11"/><line x1="12" y1="8" x2="12" y2="8.01"/></svg>
+                </button>
             </div>
         </div>
 
@@ -142,9 +145,6 @@
             <div id="nonogram-stage" class="nonogram-stage">
                 <div id="nonogram-grid" class="nonogram-grid"></div>
                 <div id="nono-toolbar" class="nono-toolbar">
-                    <button class="cf-icon-btn" data-i18n-aria="BTN_INSTRUCTIONS" aria-label="Instructions" onclick="Game.showInstructions()">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="11"/><line x1="12" y1="8" x2="12" y2="8.01"/></svg>
-                    </button>
                     <div class="nono-mark-toggle-group">
                         <span id="mark-mode-label" data-i18n="MARK_MODE_LABEL">Mark mode</span>
                         <button class="cf-icon-btn" id="mark-toggle-btn" data-i18n-aria="MODE_NOTE" aria-label="Mark" aria-pressed="false" onclick="Game.toggleMarkMode()">
