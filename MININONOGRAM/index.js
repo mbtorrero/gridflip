@@ -50,6 +50,7 @@ const Game = {
         Utils.applyLocalization(this.i18n);
         Utils.setupLanguageSwitcher(languageKey, (newKey) => this.changeLanguage(newKey));
         Utils.setupMuteButton();
+        Utils.setupSwipeForwarding();
         Utils.switchScreen('loading-screen', 'title-screen');
 
         window.addEventListener('resize', () => { if (this.puzzle) this.renderGrid(); });

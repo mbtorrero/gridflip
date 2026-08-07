@@ -75,6 +75,7 @@ const Game = {
         Utils.applyLocalization(this.i18n);
         Utils.setupLanguageSwitcher(languageKey, (newKey) => this.changeLanguage(newKey));
         Utils.setupMuteButton();
+        Utils.setupSwipeForwarding();
         this.attachInputHandlers();
         Utils.switchScreen('loading-screen', 'title-screen');
 

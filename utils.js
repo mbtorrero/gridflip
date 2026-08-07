@@ -1,6 +1,10 @@
 // utils.js
+// Shared across all 4 games. Grouped into: asset loading, localization,
+// audio/mute, screens, misc, and the host bridge (postMessage) at the bottom.
 const Utils = {
     gameId: 'microgame_default',
+
+    // -- asset loading --
 
     setBackground(bgAsset, styleOptions = {}) {
         if (bgAsset && bgAsset.src) {
@@ -10,24 +14,6 @@ const Utils = {
                 s.style.backgroundPosition = styleOptions.backgroundPosition || 'center';
             });
         }
-    },
-
-    applyLocalization: function(i18n) {
-        if (!i18n || Object.keys(i18n).length === 0) return;
-        
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (i18n[key]) {
-                el.innerText = i18n[key];
-            }
-        });
-
-        document.querySelectorAll('[data-i18n-aria]').forEach(el => {
-            const key = el.getAttribute('data-i18n-aria');
-            if (i18n[key]) {
-                el.setAttribute('aria-label', i18n[key]);
-            }
-        });
     },
 
     async loadJSON(id, src) {
@@ -49,7 +35,7 @@ const Utils = {
             const img = new Image();
             img.onload = () => resolve(img);
             img.onerror = () => reject(new Error(`Failed to load image at: ${src}`));
-            img.src = src; // Fixed variable name from imgURL
+            img.src = src;
         });
     },
 
@@ -58,15 +44,15 @@ const Utils = {
             const font = new FontFace(id, `url(${src})`);
             await font.load();
             document.fonts.add(font);
-        } catch (e) { 
-            console.warn(`Font ${id} failed to load:`, e); 
+        } catch (e) {
+            console.warn(`Font ${id} failed to load:`, e);
         }
     },
 
     async loadAudio(id, src) {
         return new Promise((resolve) => {
             const audio = new Audio();
-            
+
             const handleCanPlay = () => {
                 window.audio = window.audio || {};
                 audio.playOnce = function() {
@@ -81,7 +67,7 @@ const Utils = {
             audio.addEventListener('canplaythrough', handleCanPlay, { once: true });
             audio.addEventListener('error', () => {
                 console.warn(`Failed to load audio: ${src}`);
-                resolve(null); // Resolve anyway to avoid blocking Promise.all
+                resolve(null); // Resolve anyway so Promise.all doesn't block on it
             }, { once: true });
 
             audio.src = src;
@@ -106,12 +92,12 @@ const Utils = {
                         case 'sound':
                             return this.loadAudio(a.id, a.src);
                         case 'json':
-                            return this.loadJSON(a.id, a.src); // Fixed copy-paste bug
+                            return this.loadJSON(a.id, a.src);
                         default:
                             return null;
                     }
                 })
-                .filter(Boolean); // Clean filters out null/undefined
+                .filter(Boolean);
 
             await Promise.all(loadPromises);
         } catch (e) {
@@ -124,7 +110,7 @@ const Utils = {
             const script = document.createElement('script');
             script.src = src;
             script.onload = () => {
-                script.remove(); // Clean up DOM
+                script.remove();
                 resolve(window[varname] || {});
             };
             script.onerror = () => {
@@ -135,11 +121,13 @@ const Utils = {
         });
     },
 
+    // -- localization --
+
+    LANGUAGE_STORAGE_KEY: 'cf_language',
+
     async loadLanguageBundle(assetsPath = '', languageKey = 'en_US') {
         let basePath = assetsPath.replace(/[^/]*$/, '');
         if (basePath && !basePath.endsWith('/')) basePath += '/';
-
-        const sanitizeKey = (key) => 'i18n_' + key.replace(/[^a-zA-Z0-9_]/g, '_');
 
         const pathsToTry = [
             { url: `${basePath}i18n/${languageKey}.js` },
@@ -152,7 +140,7 @@ const Utils = {
                 await this.loadScript(option.url);
                 return window.lb;
             } catch (e) {
-                // Ignore and try fallback path
+                // Ignore and try the next fallback path
             }
         }
 
@@ -161,7 +149,23 @@ const Utils = {
         return window.lb;
     },
 
-    LANGUAGE_STORAGE_KEY: 'cf_language',
+    applyLocalization: function(i18n) {
+        if (!i18n || Object.keys(i18n).length === 0) return;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18n[key]) {
+                el.innerText = i18n[key];
+            }
+        });
+
+        document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+            const key = el.getAttribute('data-i18n-aria');
+            if (i18n[key]) {
+                el.setAttribute('aria-label', i18n[key]);
+            }
+        });
+    },
 
     getPreferredLanguage(fallback = 'en_US') {
         try {
@@ -205,6 +209,11 @@ const Utils = {
         });
     },
 
+    // -- audio & mute --
+
+    MUTE_STORAGE_KEY: 'cf_muted',
+    isMuted: false,
+
     setVolume(val = 1.0) {
         window.volume = val;
         const audios = window.audio || {};
@@ -213,8 +222,14 @@ const Utils = {
         });
     },
 
-    MUTE_STORAGE_KEY: 'cf_muted',
-    isMuted: false,
+    playSound(audio) {
+        if (audio) {
+            audio.currentTime = 0;
+            if (typeof audio.play === 'function') {
+                audio.play().catch(() => {});
+            }
+        }
+    },
 
     getPreferredMuted() {
         try {
@@ -251,30 +266,25 @@ const Utils = {
         Utils.setMuted(Utils.getPreferredMuted());
     },
 
-    playSound(audio) {
-        if (audio) {
-            audio.currentTime = 0;
-            if (typeof audio.play === 'function') {
-                audio.play().catch(() => {});
-            }
-        }
-    },
+    // -- screens --
 
+    // Shows showId, hides hideId. Also tells the host when we enter/leave
+    // 'game-screen', since that's the one id every game uses for actual
+    // gameplay (as opposed to title/level-select/instructions).
     switchScreen(hideId, showId) {
         const hideEl = document.getElementById(hideId);
         const showEl = document.getElementById(showId);
         if (hideEl) hideEl.classList.remove('active');
         if (showEl) showEl.classList.add('active');
 
-        // Every game funnels actual gameplay through a 'game-screen' id, so
-        // this is the one place that can tell the host apart from menus
-        // (title/level-select/instructions) without each game wiring it up.
         if (showId === 'game-screen' && hideId !== 'game-screen') {
             Utils.notifyLevelStarted();
         } else if (hideId === 'game-screen' && showId !== 'game-screen') {
             Utils.notifyLevelExited();
         }
     },
+
+    // -- misc --
 
     simpleUniqueArray(array = []) {
         return [...new Set(array)];
@@ -314,30 +324,21 @@ const Utils = {
         }
     },
 
-    finishGame(levelOptions = {}, stats = {}) {
-        const eventData = {
-            gameId: this.gameId,
-            levelOptions: levelOptions,
-            stats: stats
-        };
-        if ((window.parent && window.parent !== window) || Utils.isEmbedded()) {
-            window.parent.postMessage({ type: 'MICROGAME_COMPLETE', data: eventData }, '*');
-        } else {
-            console.log("Game Finished", eventData);
-        }
-    },
-
-    // If it is inside an iframe
-    isEmbedded() {
-        return !!(window.parent && window.parent !== window);
-    },
-
     getQueryParam(name) {
         try {
             return new URLSearchParams(window.location.search).get(name);
         } catch (e) {
             return null;
         }
+    },
+
+    // -- host bridge --
+    // postMessage contract with whatever embeds a game (e.g. the CogniFit
+    // feed). All the notify* calls and listenForHostCommands are no-ops
+    // when a game is opened standalone, i.e. not inside an iframe.
+
+    isEmbedded() {
+        return !!(window.parent && window.parent !== window);
     },
 
     notifyReady() {
@@ -364,11 +365,21 @@ const Utils = {
         }
     },
 
-    listenForHostCommands(handlers = { onStartLevel: ()=>{} }) {
-        if ((window.parent && window.parent !== window) || !Utils.isEmbedded()) return;
-        if (!handlers) { return; }
+    finishGame(levelOptions = {}, stats = {}) {
+        if (!Utils.isEmbedded()) {
+            console.log("Game Finished", { gameId: this.gameId, levelOptions, stats });
+            return;
+        }
+        window.parent.postMessage({
+            type: 'MICROGAME_COMPLETE',
+            data: { gameId: this.gameId, levelOptions, stats },
+        }, '*');
+    },
 
-        // In case css is different
+    // Call once from init with an onStartLevel(data) callback.
+    listenForHostCommands(handlers = { onStartLevel: () => {} }) {
+        if (!Utils.isEmbedded() || !handlers) return;
+
         document.body.classList.add('is-embedded');
 
         window.addEventListener('message', (event) => {
@@ -384,5 +395,52 @@ const Utils = {
         window.addEventListener('error', (event) => {
             Utils.notifyError(event.message || 'Unknown error');
         });
-    }
+    },
+
+    // The host's swiper can't see touches that land inside this iframe, so
+    // a swipe over the game would otherwise do nothing. This only decides
+    // what a game itself has to decide — whether a touch started on
+    // something of its own (see _gestureOwnedByElement) — and forwards raw
+    // coordinates for anything else. The host decides what counts as a
+    // swipe (threshold, direction) from those coordinates.
+    setupSwipeForwarding() {
+        if (!Utils.isEmbedded()) return;
+
+        let forwarding = false;
+
+        document.addEventListener('touchstart', (e) => {
+            if (e.touches.length !== 1) { forwarding = false; return; }
+            forwarding = !Utils._gestureOwnedByElement(e.touches[0].target);
+            if (forwarding) {
+                const t = e.touches[0];
+                window.parent.postMessage({ type: 'MICROGAME_TOUCH_START', data: { x: t.clientX, y: t.clientY } }, '*');
+            }
+        }, { passive: true, capture: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!forwarding || e.touches.length !== 1) return;
+            const t = e.touches[0];
+            window.parent.postMessage({ type: 'MICROGAME_TOUCH_MOVE', data: { x: t.clientX, y: t.clientY } }, '*');
+        }, { passive: true, capture: true });
+
+        const stop = () => {
+            if (forwarding) window.parent.postMessage({ type: 'MICROGAME_TOUCH_END' }, '*');
+            forwarding = false;
+        };
+        document.addEventListener('touchend', stop, { passive: true, capture: true });
+        document.addEventListener('touchcancel', stop, { passive: true, capture: true });
+    },
+
+    // True if el or an ancestor already handles its own clicks/drags
+    // (button, link, input, or has .onclick/.onpointerdown/etc set).
+    _gestureOwnedByElement(el) {
+        let node = el;
+        while (node && node !== document.body && node !== document.documentElement) {
+            const tag = node.tagName;
+            if (tag === 'BUTTON' || tag === 'A' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return true;
+            if (node.onclick || node.onpointerdown || node.onpointerup || node.onmousedown || node.ontouchstart) return true;
+            node = node.parentElement;
+        }
+        return false;
+    },
 };
