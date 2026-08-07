@@ -74,6 +74,7 @@ const Game = {
         Utils.setBackground(assets.find(a => a.id === 'bg'));
         Utils.applyLocalization(this.i18n);
         Utils.setupLanguageSwitcher(languageKey, (newKey) => this.changeLanguage(newKey));
+        Utils.setupMuteButton();
         this.attachInputHandlers();
         Utils.switchScreen('loading-screen', 'title-screen');
 
@@ -283,7 +284,18 @@ const Game = {
 
         if (window.audio?.win) Utils.playSound(window.audio.win);
 
+        // SEQUENCE has no daily-challenge mode, so play-again is always
+        // offered — kept as a flag check anyway to match the other games'
+        // pattern in case that changes later.
+        const isDaily = !!this.levelOptions.daily;
+        document.getElementById('result-play-again-actions').style.display = isDaily ? 'none' : '';
+        document.getElementById('result-continue-actions').style.display = isDaily ? '' : 'none';
         document.getElementById('result-modal').classList.add('active');
+    },
+
+    playAgain: function() {
+        document.getElementById('result-modal').classList.remove('active');
+        this.startLevel({ difficulty: this.levelOptions.difficulty });
     },
 
     acknowledgeResult: function() {

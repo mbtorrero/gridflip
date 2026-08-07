@@ -36,6 +36,10 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
                     <span data-i18n="BRAND">COGNIFIT MICROGAMES</span>
                 </a>
+                <button class="cf-icon-btn cf-mute-btn" data-i18n-aria="BTN_MUTE" aria-label="Mute" onclick="Utils.toggleMute()">
+                    <svg class="cf-icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                    <svg class="cf-icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
+                </button>
                 <div class="cf-lang-switcher">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     <span class="cf-lang-current">EN</span>
@@ -119,15 +123,19 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11L6.5 17M12 11l5.5 6"/></svg>
                     <span data-i18n="NAME">MINI NONOGRAM</span>
                 </div>
+                <button class="cf-icon-btn" data-i18n-aria="BTN_QUIT" aria-label="Quit" onclick="Game.requestQuit()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+                </button>
+                <button class="cf-icon-btn cf-mute-btn" data-i18n-aria="BTN_MUTE" aria-label="Mute" onclick="Utils.toggleMute()">
+                    <svg class="cf-icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                    <svg class="cf-icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
+                </button>
                 <div class="cf-lang-switcher">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     <span class="cf-lang-current">EN</span>
                     <select class="cf-lang-select" data-i18n-aria="LANGUAGE_SELECT_LABEL" aria-label="Change language"></select>
                 </div>
             </div>
-            <button class="cf-icon-btn" data-i18n-aria="BTN_QUIT" aria-label="Quit" onclick="Game.requestQuit()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-            </button>
         </div>
 
         <div class="cf-screen-body">
@@ -179,7 +187,11 @@
             <div id="result-share" class="cf-modal-actions" style="display:none;">
                 <button class="cf-button-secondary" id="share-copy-btn" data-i18n="BTN_COPY_RESULT" onclick="Game.copyShareText()">COPY RESULT</button>
             </div>
-            <div class="cf-modal-actions">
+            <div id="result-play-again-actions" class="cf-modal-actions" style="display:none;">
+                <button class="cf-button-primary" data-i18n="BTN_PLAY_AGAIN" onclick="Game.playAgain()">PLAY AGAIN</button>
+                <button class="cf-button-secondary" data-i18n="BTN_EXIT" onclick="Game.acknowledgeResult()">EXIT</button>
+            </div>
+            <div id="result-continue-actions" class="cf-modal-actions">
                 <button class="cf-button-primary" data-i18n="BTN_CONTINUE" onclick="Game.acknowledgeResult()">CONTINUE</button>
             </div>
         </div>

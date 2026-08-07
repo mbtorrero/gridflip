@@ -46,6 +46,7 @@ const Game = {
         Utils.setBackground(assets.find(a => a.id === 'bg'));
         Utils.applyLocalization(this.i18n);
         Utils.setupLanguageSwitcher(languageKey, (newKey) => this.changeLanguage(newKey));
+        Utils.setupMuteButton();
         Utils.switchScreen('loading-screen', 'title-screen');
 
         window.addEventListener('resize', () => { if (this.current) this.sizeOptionsGrid(); });
@@ -272,10 +273,19 @@ const Game = {
     // Reuses the live progress dots (already colored/checked per round) as
     // the result's "red and green circles" — no separate state to track.
     showResult: function() {
+        const isDaily = !!this.levelOptions.daily;
         document.getElementById('result-dots').innerHTML = document.getElementById('progress-dots').innerHTML;
         document.getElementById('result-time').innerText = Utils.formatTime(this.elapsedSeconds);
-        document.getElementById('result-share').style.display = this.levelOptions.daily ? '' : 'none';
+        document.getElementById('result-share').style.display = isDaily ? '' : 'none';
+        document.getElementById('result-play-again-actions').style.display = isDaily ? 'none' : '';
+        document.getElementById('result-continue-actions').style.display = isDaily ? '' : 'none';
         document.getElementById('result-modal').classList.add('active');
+    },
+
+    // Not offered after a daily challenge — there's only one per day.
+    playAgain: function() {
+        document.getElementById('result-modal').classList.remove('active');
+        this.startLevel({ options: this.levelOptions.options });
     },
 
     copyShareText: function() {

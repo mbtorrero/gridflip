@@ -49,6 +49,7 @@ const Game = {
         Utils.setBackground(assets.find(a => a.id === 'bg'));
         Utils.applyLocalization(this.i18n);
         Utils.setupLanguageSwitcher(languageKey, (newKey) => this.changeLanguage(newKey));
+        Utils.setupMuteButton();
         Utils.switchScreen('loading-screen', 'title-screen');
 
         window.addEventListener('resize', () => { if (this.puzzle) this.renderGrid(); });
@@ -417,11 +418,22 @@ const Game = {
     },
 
     showResult: function() {
+        const isDaily = !!this.levelOptions.daily;
         const asset = this.puzzle.asset;
         document.getElementById('result-image').src = this.assetsPath + asset.src;
         document.getElementById('result-time').innerText = Utils.formatTime(this.elapsedSeconds);
-        document.getElementById('result-share').style.display = this.levelOptions.daily ? '' : 'none';
+        document.getElementById('result-share').style.display = isDaily ? '' : 'none';
+        document.getElementById('result-play-again-actions').style.display = isDaily ? 'none' : '';
+        document.getElementById('result-continue-actions').style.display = isDaily ? '' : 'none';
         document.getElementById('result-modal').classList.add('active');
+    },
+
+    // Not offered after a daily challenge — there's only one per day. Omits
+    // assetId so a fresh random puzzle of the same difficulty is picked,
+    // instead of re-solving the one that was just completed.
+    playAgain: function() {
+        document.getElementById('result-modal').classList.remove('active');
+        this.startLevel({ difficulty: this.levelOptions.difficulty });
     },
 
     copyShareText: function() {

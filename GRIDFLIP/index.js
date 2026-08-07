@@ -28,6 +28,7 @@ const Game = {
 
         Utils.applyLocalization(this.i18n);
         Utils.setupLanguageSwitcher(languageKey, (newKey) => this.changeLanguage(newKey));
+        Utils.setupMuteButton();
         Utils.switchScreen('loading-screen', 'title-screen');
 
         Utils.listenForHostCommands({ onStartLevel: () => this.startLevel() });
@@ -166,10 +167,19 @@ const Game = {
     },
 
     showResult: function() {
+        const isDaily = !!this.levelOptions.daily;
         document.getElementById('result-taps').innerText = this.taps;
         document.getElementById('result-time').innerText = Utils.formatTime(this.elapsedSeconds);
-        document.getElementById('result-share').style.display = this.levelOptions.daily ? '' : 'none';
+        document.getElementById('result-share').style.display = isDaily ? '' : 'none';
+        document.getElementById('result-play-again-actions').style.display = isDaily ? 'none' : '';
+        document.getElementById('result-continue-actions').style.display = isDaily ? '' : 'none';
         document.getElementById('result-modal').classList.add('active');
+    },
+
+    // Not offered after a daily challenge — there's only one per day.
+    playAgain: function() {
+        document.getElementById('result-modal').classList.remove('active');
+        this.startLevel({ size: this.levelOptions.size });
     },
 
     copyShareText: function() {

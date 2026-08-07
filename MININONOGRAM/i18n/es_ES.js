@@ -35,6 +35,7 @@ window.lb = {
 	"RESULT_TITLE_WIN": "¡Resuelto!",
 	"RESULT_TIME_LABEL": "Tiempo",
 	"BTN_CONTINUE": "CONTINUAR",
+	"BTN_PLAY_AGAIN": "JUGAR OTRA VEZ",
 	"BTN_COPY_RESULT": "COPIAR RESULTADO",
 	"BTN_COPIED": "¡COPIADO!",
 
@@ -44,5 +45,6 @@ window.lb = {
 	"BTN_EXIT": "SALIR",
 
 	"SHARE_TEMPLATE": "Mini Nonogram {date}: resuelto en {time}",
-	"LANGUAGE_SELECT_LABEL": "Cambiar idioma"
+	"LANGUAGE_SELECT_LABEL": "Cambiar idioma",
+	"BTN_MUTE": "Silenciar"
 }

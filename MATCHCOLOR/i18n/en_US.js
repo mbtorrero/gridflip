@@ -32,6 +32,7 @@ window.lb = {
 	"RESULT_TITLE_WIN": "Level complete!",
 	"RESULT_TIME_LABEL": "Time",
 	"BTN_CONTINUE": "CONTINUE",
+	"BTN_PLAY_AGAIN": "PLAY AGAIN",
 	"BTN_COPY_RESULT": "COPY RESULT",
 	"BTN_COPIED": "COPIED!",
 	"SHARE_TEMPLATE": "Match the Color: {date} {dots} {correct}/{total} solved in {time}",
@@ -40,5 +41,6 @@ window.lb = {
 	"QUIT_CONFIRM_BODY": "Your progress on this level will be lost.",
 	"BTN_KEEP_PLAYING": "KEEP PLAYING",
 	"BTN_EXIT": "EXIT",
-	"LANGUAGE_SELECT_LABEL": "Change language"
+	"LANGUAGE_SELECT_LABEL": "Change language",
+	"BTN_MUTE": "Mute"
 }

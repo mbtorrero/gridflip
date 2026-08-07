@@ -34,10 +34,12 @@ window.lb = {
 
 	"RESULT_TITLE_WIN": "Level complete!",
 	"BTN_CONTINUE": "CONTINUE",
+	"BTN_PLAY_AGAIN": "PLAY AGAIN",
 
 	"QUIT_CONFIRM_TITLE": "Leave this game?",
 	"QUIT_CONFIRM_BODY": "Your progress on this level will be lost.",
 	"BTN_KEEP_PLAYING": "KEEP PLAYING",
 	"BTN_EXIT": "EXIT",
-	"LANGUAGE_SELECT_LABEL": "Change language"
+	"LANGUAGE_SELECT_LABEL": "Change language",
+	"BTN_MUTE": "Mute"
 }

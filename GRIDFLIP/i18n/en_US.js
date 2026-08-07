@@ -32,8 +32,10 @@ window.lb = {
 	"RESULT_TAPS_LABEL": "Taps",
 	"RESULT_TIME_LABEL": "Time",
 	"BTN_CONTINUE": "CONTINUE",
+	"BTN_PLAY_AGAIN": "PLAY AGAIN",
 	"BTN_COPY_RESULT": "COPY RESULT",
 	"BTN_COPIED": "COPIED!",
 	"SHARE_TEMPLATE": "Gridflip: {date} Solved in {steps} steps in {time}",
-	"LANGUAGE_SELECT_LABEL": "Change language"
+	"LANGUAGE_SELECT_LABEL": "Change language",
+	"BTN_MUTE": "Mute"
 }

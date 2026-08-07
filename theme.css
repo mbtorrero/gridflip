@@ -173,8 +173,8 @@ button {
 /* ---- Top bar / HUD ----------------------------------------------------- */
 
 .cf-topbar {
-  position: relative; width: 100%; flex: 0 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
+  position: relative; top: 41px; width: 100%; flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: flex-start;
   gap: var(--cf-space-3);
   margin-bottom: clamp(6px, 1.5vmin, 12px);
 }
@@ -200,7 +200,7 @@ button {
 .cf-brand svg { width: 20px; height: 20px; color: var(--cf-cyan-400); flex-shrink: 0; }
 .cf-brand span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-body.is-embedded a.cf-brand { display: none; }
+body.is-embedded .cf-brand { display: none; }
 
 .cf-topbar-left {
   display: flex; align-items: center; gap: var(--cf-space-2);
@@ -270,6 +270,12 @@ body.is-embedded a.cf-brand { display: none; }
 .cf-icon-btn:hover { border-color: var(--cf-border-medium); }
 .cf-icon-btn:active { transform: scale(0.96); }
 .cf-icon-btn svg { width: 24px; height: 24px; }
+
+/* Mute toggle: swaps which of its two SVGs is visible based on .is-muted,
+   set by Utils.syncMuteButtons(). */
+.cf-mute-btn .cf-icon-muted { display: none; }
+.cf-mute-btn.is-muted .cf-icon-unmuted { display: none; }
+.cf-mute-btn.is-muted .cf-icon-muted { display: block; }
 
 /* ---- Game identity ------------------------------------------------------ */
 

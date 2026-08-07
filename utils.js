@@ -213,6 +213,44 @@ const Utils = {
         });
     },
 
+    MUTE_STORAGE_KEY: 'cf_muted',
+    isMuted: false,
+
+    getPreferredMuted() {
+        try {
+            return localStorage.getItem(Utils.MUTE_STORAGE_KEY) === '1';
+        } catch (e) {
+            return false;
+        }
+    },
+
+    setMuted(muted) {
+        Utils.isMuted = muted;
+        Utils.setVolume(muted ? 0 : 1);
+        try {
+            localStorage.setItem(Utils.MUTE_STORAGE_KEY, muted ? '1' : '0');
+        } catch (e) { /* ignore */ }
+        Utils.syncMuteButtons();
+    },
+
+    toggleMute() {
+        Utils.setMuted(!Utils.isMuted);
+    },
+
+    // Updates every `.cf-mute-btn` on the page to reflect the current muted
+    // state (its two SVGs are toggled via the .is-muted class in theme.css).
+    syncMuteButtons() {
+        document.querySelectorAll('.cf-mute-btn').forEach(btn => {
+            btn.classList.toggle('is-muted', Utils.isMuted);
+        });
+    },
+
+    // Call once during init, alongside setupLanguageSwitcher, to restore the
+    // user's last muted preference and sync the button's icon to it.
+    setupMuteButton() {
+        Utils.setMuted(Utils.getPreferredMuted());
+    },
+
     playSound(audio) {
         if (audio) {
             audio.currentTime = 0;
