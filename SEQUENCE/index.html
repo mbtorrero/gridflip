@@ -158,6 +158,7 @@
     <div id="result-modal" class="cf-modal-overlay">
         <div class="cf-modal" role="alertdialog" aria-modal="true" aria-labelledby="result-modal-title">
             <h2 id="result-modal-title" data-i18n="RESULT_TITLE_WIN">Level complete!</h2>
+            <p class="cf-game-subtitle"><span data-i18n="RESULT_MISTAKES_LABEL">Mistakes</span>: <span id="result-mistakes">0</span></p>
             <div id="result-play-again-actions" class="cf-modal-actions" style="display:none;">
                 <button class="cf-button-primary" data-i18n="BTN_PLAY_AGAIN" onclick="Game.playAgain()">PLAY AGAIN</button>
                 <button class="cf-button-secondary" data-i18n="BTN_EXIT" onclick="Game.acknowledgeResult()">EXIT</button>

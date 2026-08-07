@@ -376,6 +376,20 @@ const Utils = {
         }, '*');
     },
 
+    // Overrides any of the --cf-pad-* vars (see theme.css) with a pixel
+    // value from the host, so the game's content clears whatever the host
+    // draws on top of it (e.g. its own HUD). Only the sides passed in are
+    // touched — the rest keep using their own safe-area default. Doesn't
+    // touch backgrounds: they're painted on body/.screen, which padding
+    // never insets (only where content sits).
+    setPaddings({ top, right, bottom, left } = {}) {
+        const root = document.documentElement.style;
+        if (top != null) root.setProperty('--cf-pad-top', `${top}px`);
+        if (right != null) root.setProperty('--cf-pad-right', `${right}px`);
+        if (bottom != null) root.setProperty('--cf-pad-bottom', `${bottom}px`);
+        if (left != null) root.setProperty('--cf-pad-left', `${left}px`);
+    },
+
     // Call once from init with an onStartLevel(data) callback.
     listenForHostCommands(handlers = { onStartLevel: () => {} }) {
         if (!Utils.isEmbedded() || !handlers) return;
@@ -389,6 +403,8 @@ const Utils = {
             } else if (msg.type === 'MICROGAME_SET_MUTED') {
                 const muted = !!(msg.data && msg.data.muted);
                 Utils.setVolume(muted ? 0 : 1);
+            } else if (msg.type === 'MICROGAME_SET_PADDINGS') {
+                Utils.setPaddings(msg.data || {});
             }
         });
 

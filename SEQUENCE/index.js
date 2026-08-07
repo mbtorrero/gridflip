@@ -58,6 +58,7 @@ const Game = {
     inputIndex: 0,
     busy: false,
     timeouts: [],
+    mistakeCount: 0,
 
     init: async function(config = {}) {
         const languageKey = Utils.getPreferredLanguage(config.languageKey || 'en_US');
@@ -101,6 +102,7 @@ const Game = {
         this.difficulty = DIFFICULTIES[options.difficulty] ? options.difficulty : 'easy';
         this.levelOptions = { difficulty: this.difficulty };
         this.roundIndex = 0;
+        this.mistakeCount = 0;
 
         Utils.switchScreen('title-screen', 'game-screen');
         Utils.switchScreen('level-screen', 'game-screen');
@@ -263,6 +265,7 @@ const Game = {
                 this.after(700, () => this.startRound());
             }
         } else {
+            this.mistakeCount++;
             playTone(ERROR_FREQUENCY, 220);
             if (window.audio?.wrong) Utils.playSound(window.audio.wrong);
             this.busy = true;
@@ -281,9 +284,11 @@ const Game = {
     finishLevel: function() {
         this.stats.gamesCompleted = (this.stats.gamesCompleted || 0) + 1;
         localStorage.setItem(this.id + '/stats', JSON.stringify(this.stats));
-        Utils.finishGame(this.levelOptions, { difficulty: this.difficulty });
+        Utils.finishGame(this.levelOptions, { difficulty: this.difficulty, mistakes: this.mistakeCount });
 
         if (window.audio?.win) Utils.playSound(window.audio.win);
+
+        document.getElementById('result-mistakes').innerText = this.mistakeCount;
 
         // SEQUENCE has no daily-challenge mode, so play-again is always
         // offered — kept as a flag check anyway to match the other games'

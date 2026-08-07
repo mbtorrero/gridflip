@@ -95,6 +95,16 @@
   --cf-motion-base: 200ms;
   --cf-motion-slow: 320ms;
   --cf-ease-standard: cubic-bezier(.2, .8, .2, 1);
+
+  /* Layout — how much of .cf-app/.screen's edges to leave clear of content.
+     Defaults are just each side's own safe-area inset; the host embedding a
+     game (e.g. the CogniFit feed) can override any of these at runtime via
+     Utils.setPaddings({top, right, bottom, left}), to also clear its own
+     UI drawn on top of the game (see Utils.setPaddings in utils.js). */
+  --cf-pad-top: max(clamp(10px, 3vmin, 16px), env(safe-area-inset-top));
+  --cf-pad-right: max(16px, env(safe-area-inset-right));
+  --cf-pad-bottom: max(clamp(10px, 3vmin, 18px), env(safe-area-inset-bottom));
+  --cf-pad-left: max(16px, env(safe-area-inset-left));
 }
 
 /* ---- Reset & base ---------------------------------------------------- */
@@ -159,8 +169,7 @@ button {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; align-items: center;
   overflow: hidden;
-  padding: max(clamp(10px, 3vmin, 16px), env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
-           max(clamp(10px, 3vmin, 18px), env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  padding: var(--cf-pad-top) var(--cf-pad-right) var(--cf-pad-bottom) var(--cf-pad-left);
 }
 
 .screen {
@@ -173,7 +182,7 @@ button {
 /* ---- Top bar / HUD ----------------------------------------------------- */
 
 .cf-topbar {
-  position: relative; top: 41px; width: 100%; flex: 0 0 auto;
+  position: relative; width: 100%; flex: 0 0 auto;
   display: flex; align-items: center; justify-content: flex-start;
   gap: var(--cf-space-3);
   margin-bottom: clamp(6px, 1.5vmin, 12px);

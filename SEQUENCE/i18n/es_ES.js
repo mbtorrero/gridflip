@@ -33,6 +33,7 @@ window.lb = {
 	"SR_RIGHT": "Derecha",
 
 	"RESULT_TITLE_WIN": "¡Nivel completado!",
+	"RESULT_MISTAKES_LABEL": "Errores",
 	"BTN_CONTINUE": "CONTINUAR",
 	"BTN_PLAY_AGAIN": "JUGAR OTRA VEZ",
 

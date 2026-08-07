@@ -8,7 +8,8 @@
    the very first round (before the grid has any size yet) and only settles
    on the next one. Anchoring the body to the top removes the circularity:
    everything above the grid has a fixed height, so the grid's top is stable
-   from the first measurement. */
+   from the first measurement. .screen's own --cf-pad-top (theme.css) already
+   clears the topbar, so nothing extra is needed here. */
 #game-screen .cf-screen-body { justify-content: flex-start; }
 
 #game-screen .cf-game-subtitle { flex-shrink: 0; margin-bottom: var(--cf-space-3); }
